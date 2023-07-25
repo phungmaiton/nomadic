@@ -1,0 +1,422 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a:hover {
+  text-decoration: none;
+}
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1230px;
+  }
+  }
+/* Backgrounds
+------------------------------*/
+
+.bg-mystic {
+  @apply bg-[#091D36]
+}
+
+.bg-venice {
+ @apply bg-[#0B4C84]
+}
+
+.bg-danube {
+  @apply bg-[#598EC2]
+}
+
+.bg-iris {
+  @apply bg-[#9BC1EE]
+}
+
+.bg-gray {
+  @apply bg-[#F0EFF5]
+}
+
+.bg-gradient-1 {
+  @apply bg-gradient-to-r from-[#9BC1EE] to-[#598EC2]
+}
+
+.fixed-background {
+  background: url(https://www.nationsonline.org/gallery/Switzerland/Sunrise-on-the-Matterhorn.jpg) no-repeat center center fixed;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-shadow: inset 0 0 0 2000px #091d3652;
+}
+
+.bg-foreground {
+  background-color: var(--foreground)!important;
+  color: var(--primary)!important
+}
+/* Header
+------------------------------*/
+
+.main-header .navbar li {
+  @apply px-[20px];
+}
+.main-header .navbar li a {
+  @apply px-[10px] font-[600] uppercase tracking-[2px] relative leading-[35px] inline-block text-[#373737] text-[15px] cursor-pointer;
+}
+.main-header .navbar li a:after {
+  @apply content-[''] absolute left-[auto] right-[0] bottom-[0] ease-in duration-300 w-[0] h-[2px] bg-[#091D36];
+}
+.main-header .navbar li a:hover,
+.main-header .navbar li a.active {
+  @apply text-[#091D36] font-[700];
+}
+
+.main-header .navbar li a:hover:after,
+.main-header .navbar li a.active:after {
+  @apply left-[0] right-[auto] w-[100%];
+}
+
+.main-header .navbar-collapse {
+  flex: 1;
+}
+
+.fixed-header .main-header {
+  @apply bg-white shadow-sm;
+}
+
+@media (max-width: 1023px) {
+  .main-header .navbar-collapse {
+    @apply absolute left-0 top-[100%] right-0 bg-white hidden;
+  }
+  .main-header .navbar-collapse.menu-open {
+    @apply block;
+  }
+  .main-header .navbar {
+    @apply w-full border-t-[1px] border-t-slate-200;
+  }
+  .main-header .navbar li {
+    @apply py-[5px] px-0;
+  }
+}
+
+.nav-icon {
+  font-size: 15px;
+  color:#091d36;
+  margin-bottom: 5px;
+}
+
+.nav-icon:hover {
+  @apply ease-in text-[#0B4C84] 
+}
+
+/* Buttons
+------------------------------*/
+.px-btn {
+  @apply rounded-md px-[20px] py-[8px] pb-[6px] text-[14px] font-['Overpass'] uppercase tracking-[2px] font-[500] inline-block ease-in duration-300 cursor-pointer;
+}
+
+.px-btn-theme {
+  @apply bg-[#0b4c84] font-bold text-white border-2 border-[#0b4c84];
+}
+.px-btn-theme:hover {
+  @apply bg-[#091D36] ease-in font-bold text-white border-2 border-[#091D36];
+}
+
+.px-btn-theme:focus {
+  @apply bg-[#091D36] font-bold text-white border-2 border-[#091D36];
+}
+
+.px-btn-dark {
+  @apply bg-[#091D36] font-bold text-white border-2 border-[#091D36];
+}
+.px-btn-dark:hover {
+  @apply bg-white ease-in font-bold text-[#0b4c84] border-2 border-[#0b4c84];
+}
+
+.px-btn-dark:focus {
+  @apply bg-[#0b4c84] font-bold text-white border-2 border-[#0b4c84];
+}
+
+.button-group {
+  @apply flex items-center justify-center relative pt-10
+}
+/* Columns
+------------------------------*/
+.column-div {
+  @apply grid grid-cols-1 gap-8 lg:grid-cols-3 gap-12 items-center 
+}
+
+/* Cards
+------------------------------*/
+
+.card {
+  @apply items-center bg-white shadow-lg hover:shadow-xl p-8 rounded-lg ease-in duration-150 min-h-[473px]
+}
+
+.card-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.pet-card-name {
+  align-items: center;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.meetup-card-text {
+  @apply lg:min-h-[112px] pb-4
+}
+
+
+.meetup-card {
+  @apply items-center bg-white shadow-lg hover:shadow-xl p-8 rounded-lg ease-in duration-150 lg:min-h-[517px]
+}
+
+.pet-card {
+  @apply items-center bg-white shadow-lg hover:shadow-xl p-8 rounded-lg ease-in duration-150 lg:min-h-[525px]
+}
+
+.pet-card-text {
+  @apply lg:min-h-[112px] pb-4
+}
+
+
+.card-title {
+  @apply font-[600] text-xl py-3 flex items-center justify-center
+}
+
+.pin {
+  color:#87AF73;
+}
+/* Section
+------------------------------*/
+.section {
+  @apply py-[45px] md:py-[60px] lg:py-[100px];
+}
+
+.section-heading {
+  @apply pb-[30px] md:pb-[40px] lg:pb-[60px];
+}
+.section-heading h3 {
+  @apply text-[35px] md:text-[40px] lg:text-[50px] text-slate-900 font-[600] uppercase leading-[1.2];
+}
+
+/* Avatar 
+------------------------------*/
+
+.avatar {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.nav-avatar {
+  border-radius: 50%;
+  width: 50px;
+  height:50px; 
+  object-fit: cover;
+}
+
+nav-avatar:hover {
+  @apply cursor-pointer
+}
+
+/* Meetups 
+------------------------------*/
+
+.meetup-cover {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+
+.meetup-cover img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.meetup-info {
+  @apply items-center bg-white shadow-lg p-8 rounded-lg ease-in duration-150 min-h-[150px]
+}
+
+.attendee-list {
+  @apply items-center bg-white shadow-lg p-8 rounded-lg ease-in duration-150 my-5
+}
+
+.attendees {
+  @apply mr-5
+}
+
+.chat {
+  @apply items-center bg-white shadow-lg p-8 rounded-lg ease-in duration-150 my-5
+}
+
+.search {
+  @apply w-[250px] text-[16px] font-[400] leading-[1.5] text-slate-900 bg-white border border-solid border-slate-900 outline-none px-[12px] py-[10px] mr-5;
+}
+
+.dropDown {
+  text-align: left;
+  width: 12%;
+  padding: 7px 5px 7px 5px;
+  border: solid 2px;
+  border-color:	rgb(220,220,220);
+  border-radius: 5px;
+}
+
+
+/* Forms
+------------------------------*/
+
+.form-control {
+  @apply w-full text-[16px] font-[400] leading-[1.5] text-slate-900 bg-white border border-solid border-slate-900 outline-none px-[12px] py-[10px] mb-2;
+}
+.form-label {
+  @apply mb-[8px] inline-block;
+}
+
+.form {
+  @apply px-[10%] bg-white py-[8%] rounded-lg
+}
+
+.form-instruction {
+  @apply font-[600] text-xl
+}
+
+.error {
+  @apply py-3 text-[#FF0000]
+}
+
+.react-time-picker__wrapper {
+  @apply w-full text-[16px] font-[400] leading-[1.5] text-slate-900 bg-white border border-solid border-slate-900 outline-none px-[12px] py-[9px] mb-2;
+}
+
+/* Dashboard
+------------------------------*/
+
+.dashboard-icon {
+  font-size: 15px;
+  color:#87AF73;
+  margin-bottom: 5px;
+}
+
+.dashboard-icon:hover {
+  @apply ease-in text-[#373737] 
+}
+
+.dashboard-half {
+  @apply items-center bg-white shadow-lg hover:shadow-xl p-8 rounded-lg ease-in duration-150
+}
+
+.dashboard-full {
+  @apply items-center bg-white shadow-lg hover:shadow-xl p-8 rounded-lg ease-in duration-150
+}
+
+/* Popup
+------------------------------*/
+.px-modal {
+  @apply fixed top-0 left-0 right-0 bottom-0 pt-[50px] bg-black bg-opacity-75 z-[999] flex justify-center items-center;
+}
+
+.px-modal .popup {
+  @apply max-w-[1200px] mx-auto bg-white w-[70%] relative flex flex-col rounded-lg;
+  max-height: calc(100% - 50px);
+}
+.px-modal .popup > .grid {
+  @apply p-[25px] h-full overflow-y-auto;
+}
+.px-modal .px-close {
+  @apply absolute -top-[18px] -right-[18px] w-[40px] h-[40px] bg-black rounded-full text-white flex items-center justify-center border-2 border-white text-sm;
+}
+
+.popup-form {
+  @apply px-[20%] py-[5%] rounded-lg
+}
+
+
+/* Pagination
+------------------------------*/
+.pagination {
+  padding-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 10%;
+  transition: background-color .3s;
+  margin: 0 4px; 
+}
+
+.pagination a.active {
+  background-color: #87AF73;
+  color: white;
+  border-radius: 10%;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #87AF73;
+  color: white;}
+
+/* Typography
+------------------------------*/
+
+h1 {
+  @apply font-[800] text-[40px] leading-[60px]}
+
+
+h2 {
+  @apply font-[700] text-[30px] leading-[40px]
+}
+
+h3 {
+  @apply font-[600] text-[20px] leading-[30px]
+}
+
+h4 {
+  @apply font-[600] text-[17px] leading-[25px]
+}
+
+/* Pets
+------------------------------*/
+
+.pet-cover {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
