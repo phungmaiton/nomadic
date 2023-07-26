@@ -10,7 +10,7 @@ export default function Signup({ onLogin }) {
         <div className="fixed-background">
           <div className="ml-[5%]">
             <div className="grid lg:grid-cols-3 items-center">
-              <div className="hidden md:block lg:col-span-2 px-10 mr-20 flex items-center justify-center">
+              <div className="hidden lg:block lg:col-span-2 px-10 mr-20 flex items-center justify-center">
                 <div className="min-h-100 d-flex align-items-center w-[500px]">
                   <div>
                     <div>
@@ -35,7 +35,7 @@ export default function Signup({ onLogin }) {
                   </div>
                 </div>
               </div>
-              <div className="mt-[35%] flex items-center justify-center rounded-l-[30px] bg-white py-10 lg:mt-0 lg:col-span-1 lg:min-h-screen">
+              <div className="mt-[2%] flex items-center justify-center rounded-l-[30px] bg-white lg:mt-0 lg:col-span-1 lg:min-h-screen">
                 <div className="">
                   <SignupForm onLogin={onLogin} />
                 </div>

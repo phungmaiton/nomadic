@@ -10,7 +10,7 @@ export default function SignupForm({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [profile_pic, setProfilePic] = useState("");
+  const [profile_img, setProfileImg] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
@@ -32,7 +32,12 @@ export default function SignupForm({ onLogin }) {
         password,
         password_confirmation: passwordConfirmation,
         email: email,
-        profile_pic: profile_pic,
+        profile_img: profile_img,
+        city: city,
+        state: state,
+        zipcode: zipcode,
+        country: country,
+        currency_code: currency,
       }),
     })
       .then((r) => {
@@ -57,6 +62,7 @@ export default function SignupForm({ onLogin }) {
         <div className="container mx-auto">
           <form onSubmit={handleSubmit} className="form">
             <div className="mb-2">
+              <img src="/img/nomadic-pin.png" className="w-[70px] mb-4" />
               <label htmlFor="username" className="form-instruction">
                 Fill out your information to sign up
               </label>
@@ -114,15 +120,15 @@ export default function SignupForm({ onLogin }) {
               />
             </div>
             <div>
-              <label htmlFor="profile_pic" className="form-label">
+              <label htmlFor="profile_img" className="form-label">
                 Profile Image
               </label>
               <input
                 type="text"
-                id="profile_pic"
+                id="profile_img"
                 className="form-control"
-                value={profile_pic}
-                onChange={(e) => setProfilePic(e.target.value)}
+                value={profile_img}
+                onChange={(e) => setProfileImg(e.target.value)}
               />
             </div>
             <div className="grid grid-cols-2 gap-2">

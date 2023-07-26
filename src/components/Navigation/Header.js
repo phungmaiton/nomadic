@@ -35,10 +35,15 @@ export default function Header({ user, setUser }) {
   return (
     <>
       <header className="main-header fixed left-0 right-0 z-[111]">
-        <div className="container mx-auto px-10 flex items-center justify-between relative py-5 lg:py-3 ">
+        <div className="container mx-auto px-10 flex items-center justify-between relative py-2 lg:py-3 ">
           <div className="logo">
             <NavLink to="/">
-              <img src="img/logo.png" title="Logo" alt="Logo" width="177px" />
+              <img
+                src="/img/nomadic-pin.png"
+                title="Logo"
+                alt="Logo"
+                width="40px"
+              />
             </NavLink>
           </div>
           <button
@@ -59,12 +64,15 @@ export default function Header({ user, setUser }) {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/pets" onClick={() => setIsOpenMenu(false)}>
+                <NavLink
+                  to="/destinations"
+                  onClick={() => setIsOpenMenu(false)}
+                >
                   Destinations
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/meetups" onClick={() => setIsOpenMenu(false)}>
+                <NavLink to="/community" onClick={() => setIsOpenMenu(false)}>
                   Community
                 </NavLink>
               </li>
@@ -113,7 +121,7 @@ export default function Header({ user, setUser }) {
                       }
                     />
                   </NavLink>
-                  <NavLink className="pl-2" onClick={handleClick}>
+                  <NavLink className="pl-2 " onClick={handleClick}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -196,16 +204,13 @@ export default function Header({ user, setUser }) {
           {!user && (
             <>
               <div className="ms-auto hidden lg:flex pr-[10px]">
-                <NavLink
-                  className="flex flex-col items-center spacy-y-1.5 relative text-xs"
-                  to="/login"
-                >
+                <NavLink className="nav-icon" to="/login">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
                     fill="currentColor"
-                    className="bi bi-box-arrow-in-right nav-icon"
+                    className="bi bi-box-arrow-in-right"
                     viewBox="0 0 16 16"
                   >
                     <path
@@ -221,16 +226,13 @@ export default function Header({ user, setUser }) {
                 </NavLink>
               </div>
               <div className="ms-auto hidden lg:flex">
-                <NavLink
-                  className="flex flex-col items-center spacy-y-1.5 relative text-xs"
-                  to="/signup"
-                >
+                <NavLink className="nav-icon" to="/signup">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
                     fill="currentColor"
-                    className="bi bi-person-plus nav-icon"
+                    className="bi bi-person-plus"
                     viewBox="0 0 16 16"
                   >
                     <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />

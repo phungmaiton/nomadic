@@ -35,7 +35,7 @@ export default function Login({ onLogin }) {
                   </div>
                 </div>
               </div>
-              <div className="mt-[35%] flex items-center justify-center rounded-l-[30px] bg-white py-10 lg:mt-0 lg:col-span-1 lg:min-h-screen">
+              <div className="mt-[14%] flex items-center justify-center rounded-l-[30px] bg-white lg:mt-0 lg:col-span-1 lg:min-h-screen">
                 <div className="">
                   <LoginForm onLogin={onLogin} />
                 </div>
