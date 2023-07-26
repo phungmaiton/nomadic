@@ -26,7 +26,7 @@ export default function Header({ user, setUser }) {
     setIsOpenMenu(false);
   }
   const location = useLocation();
-  const routesWithoutNavbar = ["/login"];
+  const routesWithoutNavbar = ["/login", "/signup"];
 
   if (routesWithoutNavbar.includes(location.pathname)) {
     return null;
@@ -60,12 +60,12 @@ export default function Header({ user, setUser }) {
               </li>
               <li>
                 <NavLink to="/pets" onClick={() => setIsOpenMenu(false)}>
-                  Cities
+                  Destinations
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/meetups" onClick={() => setIsOpenMenu(false)}>
-                  Prices
+                  Community
                 </NavLink>
               </li>
               {isOpenMenu && !user && (

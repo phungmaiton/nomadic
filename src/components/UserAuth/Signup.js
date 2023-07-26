@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
-import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 import PageTransition from "../Transitions/PageTransition";
 
-export default function Login({ onLogin }) {
+export default function Signup({ onLogin }) {
   return (
     <PageTransition>
       <div id="root" className="h-auto lg:min-h-screen">
@@ -37,7 +37,7 @@ export default function Login({ onLogin }) {
               </div>
               <div className="mt-[35%] flex items-center justify-center rounded-l-[30px] bg-white py-10 lg:mt-0 lg:col-span-1 lg:min-h-screen">
                 <div className="">
-                  <LoginForm onLogin={onLogin} />
+                  <SignupForm onLogin={onLogin} />
                 </div>
               </div>
             </div>

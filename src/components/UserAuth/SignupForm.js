@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTransition from "../Transitions/PageTransition";
+import countryList from "react-select-country-list";
 
 export default function SignupForm({ onLogin }) {
   const navigate = useNavigate();
+  const countries = useMemo(() => countryList().getData(), []);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [profile_pic, setProfilePic] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [country, setCountry] = useState("");
+  const [currency, setCurrency] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,7 +56,7 @@ export default function SignupForm({ onLogin }) {
       <section className="pt-[120px] pb-[80px] lg:pt-[170px] lg:pb-[100px] bg-blue relative overflow-hidden">
         <div className="container mx-auto">
           <form onSubmit={handleSubmit} className="form">
-            <div className="mb-5">
+            <div className="mb-2">
               <label htmlFor="username" className="form-instruction">
                 Fill out your information to sign up
               </label>
@@ -117,6 +124,79 @@ export default function SignupForm({ onLogin }) {
                 value={profile_pic}
                 onChange={(e) => setProfilePic(e.target.value)}
               />
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <label htmlFor="city" className="form-label">
+                  City
+                </label>
+                <input
+                  type="text"
+                  id="city"
+                  className="form-control"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="state" className="form-label">
+                  State
+                </label>
+                <input
+                  type="text"
+                  id="state"
+                  className="form-control"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <label htmlFor="zipcode" className="form-label">
+                  Zipcode
+                </label>
+                <input
+                  type="text"
+                  id="zipcode"
+                  className="form-control"
+                  value={zipcode}
+                  onChange={(e) => setZipcode(e.target.value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="country" className="form-label">
+                  Country
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  className="form-control"
+                  onChange={(e) => setCountry(e.target.value)}
+                  value={country}
+                >
+                  <option disabled></option>
+                  {countries.map((country) => (
+                    <option key={country.label} value={country.code}>
+                      {country.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <label htmlFor="Currency" className="form-label">
+                  Currency Code
+                </label>
+                <input
+                  type="text"
+                  id="currency"
+                  className="form-control"
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value)}
+                />
+              </div>
             </div>
             <div>
               <button type="submit" className="px-btn px-btn-theme mt-4">

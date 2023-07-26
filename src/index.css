@@ -73,6 +73,13 @@ a:hover {
   background-color: var(--foreground)!important;
   color: var(--primary)!important
 }
+
+.banner { 
+  background: linear-gradient(to right, rgb(255, 255, 255), #598ec280), url(https://upload.travelawaits.com/ta/uploads/2021/04/86366978134fa44ab7391bb54f5aa863669.jpg) no-repeat center center;
+  background-size: 100%;
+
+}
+
 /* Header
 ------------------------------*/
 
@@ -307,7 +314,7 @@ nav-avatar:hover {
 }
 
 .form {
-  @apply px-[10%] bg-white py-[8%] rounded-lg
+  @apply bg-white py-[8%] rounded-lg
 }
 
 .form-instruction {
