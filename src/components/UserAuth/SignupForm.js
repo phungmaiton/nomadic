@@ -62,7 +62,11 @@ export default function SignupForm({ onLogin }) {
         <div className="container mx-auto">
           <form onSubmit={handleSubmit} className="form">
             <div className="mb-2">
-              <img src="/img/nomadic-pin.png" className="w-[70px] mb-4" />
+              <img
+                src="/img/nomadic-pin.png"
+                alt="logo"
+                className="w-[70px] mb-4"
+              />
               <label htmlFor="username" className="form-instruction">
                 Fill out your information to sign up
               </label>

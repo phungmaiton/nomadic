@@ -5,7 +5,12 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 * Header
 ----------------------*/
 
-export default function Header({ user, setUser }) {
+export default function Header({
+  user,
+  setUser,
+  selectedCurrency,
+  handleCurrencyChange,
+}) {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigate = useNavigate();
   function handleLogoutClick() {
@@ -88,15 +93,29 @@ export default function Header({ user, setUser }) {
                 </div>
               )}
               {isOpenMenu && !user && (
-                <div className="pt-2 lg:flex pr-[10px]">
-                  <NavLink
-                    className="px-btn px-btn-theme"
-                    to="signup"
-                    onClick={() => setIsOpenMenu(false)}
-                  >
-                    Signup
-                  </NavLink>
-                </div>
+                <>
+                  <div className="pt-2 lg:flex pr-[10px]">
+                    <NavLink
+                      className="px-btn px-btn-theme"
+                      to="signup"
+                      onClick={() => setIsOpenMenu(false)}
+                    >
+                      Signup
+                    </NavLink>
+                  </div>
+                  <div>
+                    <select
+                      value={selectedCurrency}
+                      onChange={handleCurrencyChange}
+                      className="mt-2 border-2 px-2 py-2"
+                    >
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="GBP">GBP</option>
+                      {/* Add more currency options as needed */}
+                    </select>
+                  </div>
+                </>
               )}
               {isOpenMenu && user && (
                 <div className="lg:flex pr-[10px]">

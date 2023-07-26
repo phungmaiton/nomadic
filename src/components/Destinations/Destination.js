@@ -12,13 +12,13 @@ function Banner({ setCountry, setSearchTerm }) {
     <>
       <section
         id="home"
-        className="pt-[120px] pb-[80px] lg:pt-[170px] lg:pb-[100px] banner-destinations relative overflow-hidden"
+        className="pt-[120px] pb-[20px] lg:pt-[170px] lg:pb-[100px] banner-destinations relative overflow-hidden"
       >
-        <div className="container mx-auto px-8">
+        <div className="mx-auto px-8">
           <div className="container relative z-[1]">
             <div className="grid gap-9 lg:grid-cols-12 grid-cols-1 items-center">
               <div className="lg:col-span-12">
-                <div className="text-leftlg:text-start mb-[50px] lg:mb-0 w-[900px]">
+                <div className="sm:text-center w-full lg:text-left mb-[50px] lg:mb-0 w-[900px]">
                   <h1 className="text-[#373737] font-[600] text-[40px] lg:text-[50px] xl:text-[50px] leading-[1] mb-[25px] md:mb-[32px]">
                     Find Your Perfect Abode with Nomadic
                   </h1>
@@ -92,7 +92,7 @@ export default function Destinations({
         <div className="container mx-auto px-10">
           <div className="column-div">
             {isLoading ? (
-              <BarLoader color="#091D36" />
+              <BarLoader color="#0B4C84" />
             ) : (
               currentPosts().map((destination) => (
                 <DestinationItem

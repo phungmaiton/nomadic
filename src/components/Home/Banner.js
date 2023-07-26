@@ -8,9 +8,9 @@ export default function Banner() {
     <>
       <section
         id="home"
-        className="pt-[120px] pb-[80px] lg:pt-[170px] lg:pb-[100px] banner relative overflow-hidden"
+        className="pt-[120px] pb-[20px] lg:pt-[170px] lg:pb-[100px] banner relative overflow-hidden"
       >
-        <div className="container mx-auto">
+        <div className="mx-auto">
           <div className="container relative z-[1]">
             <div className="grid gap-9 lg:grid-cols-12 grid-cols-1 items-center">
               <div className="lg:col-span-7">

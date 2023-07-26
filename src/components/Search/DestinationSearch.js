@@ -9,25 +9,27 @@ export default function DestinationSearch({ setSearchTerm, setCountry }) {
 
   return (
     <div className="container m-auto px-2">
-      <input
-        onChange={handleChange}
-        type="text"
-        className="search"
-        placeholder="City Name"
-      />
-      <select
-        id="country"
-        name="country"
-        className="search-select"
-        onChange={(e) => setCountry(e.target.value)}
-      >
-        <option value="">Select Country</option>
-        {countries.map((country) => (
-          <option key={country.label} value={country.code}>
-            {country.label}
-          </option>
-        ))}
-      </select>
+      <div className="flex flex-col lg:flex-row">
+        <input
+          onChange={handleChange}
+          type="text"
+          className="search"
+          placeholder="City Name"
+        />
+        <select
+          id="country"
+          name="country"
+          className="search-select"
+          onChange={(e) => setCountry(e.target.value)}
+        >
+          <option value="">Select Country</option>
+          {countries.map((country) => (
+            <option key={country.label} value={country.code}>
+              {country.label}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 }

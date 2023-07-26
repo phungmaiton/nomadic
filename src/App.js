@@ -12,6 +12,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [destinations, setDestinations] = useState([]);
+  const [selectedCurrency, setSelectedCurrency] = useState("USD");
 
   useEffect(() => {
     // auto-login
@@ -43,7 +44,12 @@ function App() {
 
   return (
     <div>
-      <Header user={user} setUser={setUser} />
+      <Header
+        user={user}
+        setUser={setUser}
+        selectedCurrency={selectedCurrency}
+        handleCurrencyChange={setSelectedCurrency}
+      />
       <Routes locations={location} key={location.pathname}>
         <Route exact path="/" element={<Home isLoading={isLoading} />} />
         <Route path="/login" element={<Login onLogin={setUser} />} />

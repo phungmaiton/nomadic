@@ -76,20 +76,19 @@ a:hover {
 
 .banner { 
   background: linear-gradient(to right, rgb(255, 255, 255), #598ec280), url(https://upload.travelawaits.com/ta/uploads/2021/04/86366978134fa44ab7391bb54f5aa863669.jpg) no-repeat center center;
-  background-size: 100%;
+  background-size: cover;
 
 }
 
 .banner-destinations {
   background: linear-gradient(to right, rgb(255, 255, 255), #598ec280), url(https://cdn.britannica.com/71/73371-050-9DFAEC1E/Reykjavik-Iceland.jpg) no-repeat center center;
-  background-size: 100%;
+  background-size: cover;
 
 }
 
 .banner-destination {
   background: no-repeat center center;
-  background-size: 100%;
-
+  background-size: cover;
 }
 /* Header
 ------------------------------*/
