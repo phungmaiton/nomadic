@@ -47,7 +47,7 @@ export default function Header({
                 src="/img/nomadic-pin.png"
                 title="Logo"
                 alt="Logo"
-                width="40px"
+                width="45px"
               />
             </NavLink>
           </div>

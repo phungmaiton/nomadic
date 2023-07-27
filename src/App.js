@@ -6,7 +6,8 @@ import Login from "./components/UserAuth/Login";
 import Signup from "./components/UserAuth/Signup";
 import Destinations from "./components/Destinations/Destination";
 import DestinationByID from "./components/Destinations/DestinationByID";
-
+import Community from "./components/Community/Community";
+import AddBlog from "./components/Community/AddBlog";
 const calculateAveragePerPrice = (price) => {
   const { avg_usd, city } = price;
   const exchange_rate = city?.exchange_rate;
@@ -50,10 +51,11 @@ function App() {
   const [prices, setPrices] = useState([]);
   const [updatedPrices, setUpdatedPrices] = useState([]);
   const [isPricesLoading, setIsPricesLoading] = useState(false);
+  const [blogs, setBlogs] = useState(null);
 
   useEffect(() => {
     // auto-login
-    fetch("http://127.0.0.1:5555/check_session")
+    fetch("/check_session")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -105,6 +107,17 @@ function App() {
     }
   }, [user]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetch("/blogs")
+      .then((response) => response.json())
+      .then((blogs) => {
+        setBlogs(blogs);
+        setIsLoading(false);
+        console.log(blogs);
+      });
+  }, []);
+
   return (
     <div>
       <Header
@@ -140,6 +153,16 @@ function App() {
               selectedCurrency={selectedCurrency}
             />
           }
+        />
+        <Route
+          path="/community"
+          element={
+            <Community user={user} isLoading={isLoading} onLogin={setUser} />
+          }
+        />
+        <Route
+          path="/add-blog"
+          element={<AddBlog user={user} blogs={blogs} onLogin={setUser} />}
         />
       </Routes>
     </div>
