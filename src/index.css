@@ -146,6 +146,34 @@ a:hover {
 .nav-button {
   @apply rounded-md px-[20px] py-[8px] pb-[6px] text-[14px] font-['Overpass'] uppercase tracking-[2px] font-[500] inline-block ease-in duration-300 cursor-pointer;
 }
+
+.dropdown {
+  @apply relative flex
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 108%;
+  right: 0;
+  background-color: #f9f9f9a3;
+  min-width: 140px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.username {
+  display: block;
+  padding: 10px;
+  color: #333;
+}
+
 /* Buttons
 ------------------------------*/
 .px-btn {
@@ -269,7 +297,7 @@ nav-avatar:hover {
   object-fit: cover;
 }
 
-.meetup-info {
+.price-info {
   @apply items-center bg-white shadow-lg p-8 rounded-lg ease-in duration-150 min-h-[150px]
 }
 

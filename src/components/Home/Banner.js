@@ -24,7 +24,10 @@ export default function Banner() {
                     horizons.
                   </h6>
                   <div>
-                    <NavLink className="px-btn px-btn-theme " to="/meetups">
+                    <NavLink
+                      className="px-btn px-btn-theme "
+                      to="/destinations"
+                    >
                       Explore
                     </NavLink>
                   </div>

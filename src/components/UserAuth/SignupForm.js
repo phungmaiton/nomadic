@@ -197,15 +197,22 @@ export default function SignupForm({ onLogin }) {
             <div className="grid grid-cols-2 gap-2">
               <div className="col-span-1">
                 <label htmlFor="Currency" className="form-label">
-                  Currency Code
+                  Default Currency
                 </label>
-                <input
-                  type="text"
+
+                <select
                   id="currency"
                   className="form-control"
                   value={currency}
                   onChange={(e) => setCurrency(e.target.value)}
-                />
+                >
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                  <option value="AUD">AUD</option>
+                  <option value="SGD">SGD</option>
+                  <option value="CAD">CAD</option>
+                </select>
               </div>
             </div>
             <div>

@@ -41,6 +41,8 @@ export default function Destinations({
   destinations,
   isLoading,
   onLogin,
+  selectedCurrency,
+  prices,
 }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
@@ -50,8 +52,6 @@ export default function Destinations({
   const [filteredDestinations, setFilteredDestinations] = useState([]);
   const [country, setCountry] = useState("");
   const [showModal, setShowModal] = useState(false);
-
-  console.log(country);
 
   useEffect(() => {
     if (!searchTerm && !country) {
@@ -69,7 +69,6 @@ export default function Destinations({
     }
   }, [searchTerm, destinations, country]);
 
-  console.log(filteredDestinations);
   const currentPosts = () => {
     if (!searchTerm && !country) {
       return destinations.slice(indexOfFirstPost, indexOfLastPost);
