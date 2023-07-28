@@ -1,11 +1,9 @@
 import PageTransition from "../Transitions/PageTransition";
-import { NavLink } from "react-router-dom";
 import DestinationItem from "./DestinationItem";
 import BarLoader from "react-spinners/BarLoader";
 import Pagination from "../Pagination/Pagination";
 import { useState, useEffect } from "react";
 import DestinationSearch from "../Search/DestinationSearch";
-import DestinationByID from "./DestinationByID";
 
 function Banner({ setCountry, setSearchTerm }) {
   return (
@@ -51,7 +49,6 @@ export default function Destinations({
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredDestinations, setFilteredDestinations] = useState([]);
   const [country, setCountry] = useState("");
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (!searchTerm && !country) {
@@ -79,9 +76,6 @@ export default function Destinations({
 
   const paginate = ({ selected }) => {
     setCurrentPage(selected + 1);
-  };
-  const closePopup = () => {
-    setShowModal(false);
   };
 
   return (
@@ -112,15 +106,6 @@ export default function Destinations({
           />
         </div>
       </section>
-      {showModal ? (
-        <>
-          <DestinationByID
-            closePopup={closePopup}
-            setShowModal={setShowModal}
-            onLogin={onLogin}
-          ></DestinationByID>
-        </>
-      ) : null}
     </PageTransition>
   );
 }

@@ -442,19 +442,17 @@ h2 {
 }
 
 h3 {
-  @apply font-[600] text-[20px] leading-[30px]
+  @apply font-[600] text-[20px] leading-[22px]
 }
 
 h4 {
   @apply font-[600] text-[17px] leading-[25px]
 }
 
-/* Pets
+/* Blogs
 ------------------------------*/
 
-.pet-cover {
-  width: 100%;
-  height: 500px;
-  object-fit: cover;
+.blog-item-container {
+  margin-bottom: 18px; 
 }
 

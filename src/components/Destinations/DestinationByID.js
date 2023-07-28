@@ -57,11 +57,21 @@ function RenderPrice({ item_name, avg, selectedCurrency }) {
   );
 }
 
+function RenderBlog({ title, author, id }) {
+  return (
+    <NavLink to={`/community/${id}`} className="text-left">
+      <h3 className="leading-[22x] text-[18px]">{title}</h3>
+      <p className=" mb-[10px]">by {author}</p>
+    </NavLink>
+  );
+}
+
 export default function DestinationByID({
   selectedCurrency,
   onLogin,
   user,
   prices,
+  blogs,
 }) {
   const { id } = useParams();
   const [destination, setDestination] = useState(null);
@@ -72,6 +82,7 @@ export default function DestinationByID({
   const [utilityPrices, setUtilityPrices] = useState(null);
   const [transportationPrices, setTransporationPrices] = useState(null);
   const [address, setAddress] = useState(null);
+  const [cityBlogs, setCityBlogs] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -84,15 +95,12 @@ export default function DestinationByID({
       });
   }, [id]);
 
-  console.log(address);
-
   useEffect(() => {
     if (prices && prices.length > 0 && destination) {
       const filteredPrices = prices.filter(
         (price) => price.city_id === destination.id
       );
       setCityPrices(filteredPrices);
-      console.log(cityPrices);
     }
   }, [destination, prices, id]);
 
@@ -122,6 +130,17 @@ export default function DestinationByID({
       setTransporationPrices(transportation_prices);
     }
   }, [cityPrices]);
+
+  useEffect(() => {
+    if (blogs && destination) {
+      const cityBlogs = blogs.filter(
+        (blog) =>
+          blog.blog_city.toLowerCase() === destination.city_name.toLowerCase()
+      );
+      setCityBlogs(cityBlogs.slice(-3));
+      console.log(cityBlogs);
+    }
+  }, [blogs, destination]);
 
   return (
     <PageTransition>
@@ -201,7 +220,7 @@ export default function DestinationByID({
                     </div>
                     <div className="text-center mt-4">
                       {user ? (
-                        <NavLink class="px-btn px-btn-theme">
+                        <NavLink className="px-btn px-btn-theme">
                           Add to List
                         </NavLink>
                       ) : (
@@ -216,9 +235,19 @@ export default function DestinationByID({
                   <div className="shadow-lg rounded-lg">
                     <Map address={address} />
                   </div>
-                  <div className="price-info mt-4">
-                    <h3>Related Posts</h3>
-                  </div>
+                  {cityBlogs && cityBlogs.length > 0 && (
+                    <div className="price-info mt-4">
+                      <h2 className="mb-3 text-[#0B4C84]">Related Posts</h2>
+                      {cityBlogs.map((blog) => (
+                        <RenderBlog
+                          key={blog.id}
+                          id={blog.id}
+                          author={blog.user.username}
+                          title={blog.title}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

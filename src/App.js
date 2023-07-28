@@ -52,6 +52,7 @@ function App() {
   const [updatedPrices, setUpdatedPrices] = useState([]);
   const [isPricesLoading, setIsPricesLoading] = useState(false);
   const [blogs, setBlogs] = useState(null);
+  const [users, setUsers] = useState(null);
 
   useEffect(() => {
     // auto-login
@@ -114,9 +115,27 @@ function App() {
       .then((blogs) => {
         setBlogs(blogs);
         setIsLoading(false);
-        console.log(blogs);
       });
   }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch("/users")
+      .then((response) => response.json())
+      .then((users) => {
+        setUsers(users);
+        setIsLoading(false);
+        console.log(users);
+      });
+  }, []);
+
+  function handleAddBlog() {
+    fetch("/blogs")
+      .then((response) => response.json())
+      .then((blogs) => {
+        setBlogs(blogs);
+      });
+  }
 
   return (
     <div>
@@ -140,6 +159,7 @@ function App() {
               isLoading={isLoading}
               onLogin={setUser}
               selectedCurrency={selectedCurrency}
+              blogs={blogs}
             />
           }
         />
@@ -151,18 +171,32 @@ function App() {
               user={user}
               destinations={destinations}
               selectedCurrency={selectedCurrency}
+              blogs={blogs}
             />
           }
         />
         <Route
           path="/community"
           element={
-            <Community user={user} isLoading={isLoading} onLogin={setUser} />
+            <Community
+              user={user}
+              isLoading={isLoading}
+              onLogin={setUser}
+              blogs={blogs}
+            />
           }
         />
+
         <Route
           path="/add-blog"
-          element={<AddBlog user={user} blogs={blogs} onLogin={setUser} />}
+          element={
+            <AddBlog
+              user={user}
+              blogs={blogs}
+              onLogin={setUser}
+              handleAddBlog={handleAddBlog}
+            />
+          }
         />
       </Routes>
     </div>
