@@ -15,7 +15,7 @@ export default function BlogItem({ title, author, city, country, img, id }) {
               target="_blank"
               href={`/community/${id}`}
             ></a>
-            <h3>{title}</h3>
+            <h3>{title.replace(/'S/g, "'s")}</h3>
             <p className="test__author font-sm font-light">{author}</p>
           </div>
           <div className="mt-auto  overflow-hidden">

@@ -57,12 +57,21 @@ function RenderPrice({ item_name, avg, selectedCurrency }) {
   );
 }
 
-function RenderBlog({ title, author, id }) {
+function RenderBlog({ title, author, id, img }) {
   return (
-    <NavLink to={`/community/${id}`} className="text-left">
-      <h3 className="leading-[22x] text-[18px]">{title}</h3>
-      <p className=" mb-[10px]">by {author}</p>
-    </NavLink>
+    <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-center pb-3">
+      <div className="col-span-2">
+        <img src={img} className="blog-img rounded-lg" />
+      </div>
+      <div className="lg:col-span-4">
+        <NavLink to={`/community/${id}`} className="text-left">
+          <h3 className="leading-[18px] text-[16px]">
+            {title.length < 50 ? title : title.substring(0, 50) + "..."}
+          </h3>
+          <p className="text-[13px] pt-2">by {author}</p>
+        </NavLink>
+      </div>
+    </div>
   );
 }
 
@@ -236,14 +245,15 @@ export default function DestinationByID({
                     <Map address={address} />
                   </div>
                   {cityBlogs && cityBlogs.length > 0 && (
-                    <div className="price-info mt-4">
+                    <div className="related-posts mt-4">
                       <h2 className="mb-3 text-[#0B4C84]">Related Posts</h2>
                       {cityBlogs.map((blog) => (
                         <RenderBlog
                           key={blog.id}
                           id={blog.id}
                           author={blog.user.username}
-                          title={blog.title}
+                          title={blog.title.replace(/'S/g, "'s")}
+                          img={blog.blog_img}
                         />
                       ))}
                     </div>

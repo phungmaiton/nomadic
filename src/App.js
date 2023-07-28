@@ -8,6 +8,7 @@ import Destinations from "./components/Destinations/Destination";
 import DestinationByID from "./components/Destinations/DestinationByID";
 import Community from "./components/Community/Community";
 import AddBlog from "./components/Community/AddBlog";
+import BlogByID from "./components/Community/BlogByID";
 const calculateAveragePerPrice = (price) => {
   const { avg_usd, city } = price;
   const exchange_rate = city?.exchange_rate;
@@ -183,6 +184,7 @@ function App() {
               isLoading={isLoading}
               onLogin={setUser}
               blogs={blogs}
+              users={users}
             />
           }
         />
@@ -195,6 +197,18 @@ function App() {
               blogs={blogs}
               onLogin={setUser}
               handleAddBlog={handleAddBlog}
+            />
+          }
+        />
+        <Route
+          path="/community/:id"
+          element={
+            <BlogByID
+              user={user}
+              isLoading={isLoading}
+              onLogin={setUser}
+              blogs={blogs}
+              users={users}
             />
           }
         />

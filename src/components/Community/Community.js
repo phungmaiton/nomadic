@@ -78,7 +78,7 @@ export default function Community({ user, isLoading, blogs }) {
               <BlogItem
                 key={blog.id}
                 id={blog.id}
-                title={blog.title}
+                title={blog.title.replace(/'S/g, "'s")}
                 city={blog.blog_city}
                 country={blog.blog_country}
                 img={blog.blog_img}

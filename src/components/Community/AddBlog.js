@@ -56,7 +56,7 @@ export default function AddBlog({ user, blogs, handleAddBlog }) {
         blog_body: values.blog_body,
         blog_img: values.blog_img,
         blog_city: values.blog_city,
-        blog_country: values.blog_country,
+        blog_country: country,
       };
       setIsLoading(true);
       fetch("/blogs", {
