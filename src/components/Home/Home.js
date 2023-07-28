@@ -9,10 +9,9 @@ export default function Home({ isLoading }) {
       <div>
         <Banner />
       </div>
-      <section className="pt-[50px] pb-[50px] lg:pt-[100px] lg:pb-[100px] relative overflow-hidden">
-        <div className="container mx-auto px-10">
-          <h2>Upcoming Meetups</h2>
-          {/* <div className="column-div pt-5">
+      <div className="container mx-auto px-10 mt-5">
+        <h2>New Blog Posts</h2>
+        {/* <div className="column-div pt-5">
             {isLoading ? (
               <BarLoader color="#87AF73" />
             ) : (
@@ -27,8 +26,7 @@ export default function Home({ isLoading }) {
               ))
             )}
           </div> */}
-        </div>
-      </section>
+      </div>
     </PageTransition>
   );
 }

@@ -39,16 +39,16 @@ function Banner({ img, city, country, title, date, avatar, author }) {
           <div className="container relative z-[1]">
             <div className="grid gap-9 lg:grid-cols-12 grid-cols-1 items-end">
               <div className="lg:col-span-12">
-                <div className="sm:text-center md:text-left lg:mb-0 w-[900px]">
-                  <h1 className="text-white font-[600] text-[40px] lg:text-[50px] xl:text-[50px] leading-[1]">
+                <div className="sm:text-center md:text-left lg:mb-0 w-[1000px]">
+                  <h1 className="text-white font-[600] text-[40px] lg:text-[45px] xl:text-[45px] leading-[1]">
                     {title.replace(/'S/g, "'s")}
                   </h1>
                   <h4 className="text-white">
                     {city}, {country}
                   </h4>
                   <p className="text-white text-[15px]">{formattedDate}</p>
-                  <div className="grid grid-cols-4 gap-1 md:grid-cols-6 lg:grid-cols-12 grid-cols-1 items-center">
-                    <div className="col-span-1 lg:col-span-1">
+                  <div className="grid sm:grid-cols-2 gap-1 md:grid-cols-6 lg:grid-cols-8 items-center">
+                    <div className="sm:col-span-1 lg:col-span-1">
                       <img
                         className="avatar mt-3 width-100"
                         src={
@@ -58,7 +58,7 @@ function Banner({ img, city, country, title, date, avatar, author }) {
                         }
                       ></img>
                     </div>
-                    <div className="col-span-3 ml-2 lg:col-span-4 text-white">
+                    <div className="sm:col-span-1 ml-2 lg:col-span-4 text-white">
                       <ul>
                         <li>Author</li>
                         <li>

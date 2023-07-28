@@ -262,14 +262,14 @@ a:hover {
 .avatar {
   border-radius: 50%;
   width: 80px;
-  height: 80px;
+  height: 80px; 
   object-fit: cover;
 }
 
 .nav-avatar {
   border-radius: 50%;
   width: 50px;
-  height:50px; 
+  height: 50px; 
   object-fit: cover;
 }
 
@@ -391,7 +391,7 @@ nav-avatar:hover {
 }
 
 .px-modal .popup {
-  @apply max-w-[1200px] mx-auto bg-white w-[70%] relative flex flex-col rounded-lg;
+  @apply max-w-[1200px] mx-auto bg-white w-[50%] relative flex flex-col rounded-lg;
   max-height: calc(100% - 50px);
 }
 .px-modal .popup > .grid {
@@ -463,4 +463,8 @@ h4 {
   width: 100%;
   height: 100px;
   object-fit: cover;
+}
+
+.blog-form-label {
+  @apply mb-[8px] inline-block text-[20px] font-[600]
 }

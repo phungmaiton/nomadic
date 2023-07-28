@@ -5,8 +5,9 @@ import BarLoader from "react-spinners/BarLoader";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import DestinationSearch from "../Search/DestinationSearch";
+import LoginPopup from "../UserAuth/LoginPopup";
 
-export default function Community({ user, isLoading, blogs }) {
+export default function Community({ user, isLoading, blogs, onLogin }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [country, setCountry] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,6 +15,7 @@ export default function Community({ user, isLoading, blogs }) {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const [filteredBlogs, setFilteredBlogs] = useState([]);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     if (!searchTerm && !country) {
@@ -43,13 +45,17 @@ export default function Community({ user, isLoading, blogs }) {
     setCurrentPage(selected + 1);
   };
 
+  const closePopup = () => {
+    setShowLogin(false);
+  };
+
   return (
     <PageTransition>
       <section className="pt-[150px] pb-[20px] lg:pt-[150px] lg:pb-[50px] bg-gradient-1 relative overflow-hidden">
         <div className="container mx-auto px-10">
           <div className="grid grid-cols-2 md:grid-cols-3 items-end">
             <div className="col-span-1 md:col-span-2">
-              <h1 className="text-[#373737] font-[600] text-[30px] lg:text-[35px] xl:text-[40px] leading-[1] mb-[25px] md:mb-[32px] px-3">
+              <h1 className="text-[#373737] font-[600] text-[40px] lg:text-[50px] xl:text-[50px] leading-[1] mb-[25px] md:mb-[32px]">
                 Community
               </h1>
               <DestinationSearch
@@ -63,9 +69,12 @@ export default function Community({ user, isLoading, blogs }) {
                   Contribute
                 </NavLink>
               ) : (
-                <NavLink to={"/add-blog"} className="px-btn px-btn-theme">
+                <button
+                  onClick={() => setShowLogin(true)}
+                  className="px-btn px-btn-theme"
+                >
                   Login to Contribute
-                </NavLink>
+                </button>
               )}
             </div>
           </div>
@@ -95,6 +104,15 @@ export default function Community({ user, isLoading, blogs }) {
       ) : (
         <BarLoader color="#0B4C84" />
       )}
+      {showLogin ? (
+        <>
+          <LoginPopup
+            closePopup={closePopup}
+            setShowModal={setShowLogin}
+            onLogin={onLogin}
+          ></LoginPopup>
+        </>
+      ) : null}
     </PageTransition>
   );
 }

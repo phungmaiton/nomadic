@@ -99,7 +99,7 @@ export default function AddBlog({ user, blogs, handleAddBlog }) {
               className="form"
             >
               <div>
-                <label className="form-label">Title</label>
+                <label className="blog-form-label">Title</label>
                 <input
                   name="title"
                   id="title"
@@ -112,7 +112,7 @@ export default function AddBlog({ user, blogs, handleAddBlog }) {
                 <p className="error"> {formik.errors.title}</p>
               </div>
               <div>
-                <label className="form-label">Blog Content</label>
+                <label className="blog-form-label">Blog Content</label>
                 <ReactQuill
                   value={formik.values.blog_body}
                   onChange={(content) =>
@@ -124,7 +124,7 @@ export default function AddBlog({ user, blogs, handleAddBlog }) {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-12 gap-9">
                 <div className="md:col-span-4">
-                  <label className="form-label mt-5">Cover Image</label>
+                  <label className="blog-form-label mt-5">Cover Image</label>
                   <input
                     name="blog_img"
                     id="blog_img"
@@ -137,7 +137,7 @@ export default function AddBlog({ user, blogs, handleAddBlog }) {
                   <p className="error"> {formik.errors.blog_img}</p>
                 </div>
                 <div className="md:col-span-4">
-                  <label className="form-label mt-5">City</label>
+                  <label className="blog-form-label mt-5">City</label>
                   <input
                     name="blog_city"
                     id="blog_city"
@@ -150,7 +150,10 @@ export default function AddBlog({ user, blogs, handleAddBlog }) {
                   <p className="error"> {formik.errors.blog_city}</p>
                 </div>
                 <div className="md:col-span-4">
-                  <label htmlFor="blog_country" className="form-label mt-5">
+                  <label
+                    htmlFor="blog_country"
+                    className="blog-form-label mt-5"
+                  >
                     Country
                   </label>
                   <select
