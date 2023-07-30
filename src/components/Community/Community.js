@@ -51,9 +51,9 @@ export default function Community({ user, isLoading, blogs, onLogin }) {
 
   return (
     <PageTransition>
-      <section className="pt-[150px] pb-[20px] lg:pt-[150px] lg:pb-[50px] bg-gradient-1 relative overflow-hidden">
+      <section className="pt-[120px] pb-[20px] lg:pt-[170px] lg:pb-[100px] banner-community relative overflow-hidden">
         <div className="container mx-auto px-10">
-          <div className="grid grid-cols-2 md:grid-cols-3 items-end">
+          <div className="grid grid-cols-1 md:grid-cols-3 items-end">
             <div className="col-span-1 md:col-span-2">
               <h1 className="text-[#373737] font-[600] text-[40px] lg:text-[50px] xl:text-[50px] leading-[1] mb-[25px] md:mb-[32px]">
                 Community
@@ -63,7 +63,7 @@ export default function Community({ user, isLoading, blogs, onLogin }) {
                 setCountry={setCountry}
               />
             </div>
-            <div className="col-span-1 flex justify-end">
+            <div className="col-span-1 mt-2 ml-2 flex md:justify-end md:mt-0 md:mt-0">
               {user ? (
                 <NavLink to={"/add-blog"} className="px-btn px-btn-theme">
                   Contribute

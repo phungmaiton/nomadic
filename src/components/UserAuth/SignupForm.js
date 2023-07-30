@@ -58,7 +58,7 @@ export default function SignupForm({ onLogin }) {
 
   return (
     <PageTransition>
-      <section className="pt-[120px] pb-[80px] lg:pt-[170px] lg:pb-[100px] bg-blue relative overflow-hidden">
+      <section className="bg-blue relative overflow-hidden">
         <div className="container mx-auto">
           <form onSubmit={handleSubmit} className="form">
             <div className="mb-2">
@@ -71,57 +71,61 @@ export default function SignupForm({ onLogin }) {
                 Fill out your information to sign up
               </label>
             </div>
-            <div>
-              <label htmlFor="username" className="form-label">
-                Username
-              </label>
-              <input
-                type="text"
-                id="username"
-                className="form-control"
-                autoComplete="off"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <label htmlFor="username" className="form-label">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  className="form-control"
+                  autoComplete="off"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="email" className="form-label">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="form-control"
+                  autoComplete="off"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
             </div>
-            <div>
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="form-control"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="form-label">
-                Password Confirmation
-              </label>
-              <input
-                type="password"
-                id="password_confirmation"
-                className="form-control"
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
-                autoComplete="current-password"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="form-label">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="form-control"
-                autoComplete="off"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <label htmlFor="password" className="form-label">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  className="form-control"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                />
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="password" className="form-label">
+                  Password Confirmation
+                </label>
+                <input
+                  type="password"
+                  id="password_confirmation"
+                  className="form-control"
+                  value={passwordConfirmation}
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
+                  autoComplete="current-password"
+                />
+              </div>
             </div>
             <div>
               <label htmlFor="profile_img" className="form-label">

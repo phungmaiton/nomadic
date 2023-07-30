@@ -54,6 +54,7 @@ function App() {
   const [isPricesLoading, setIsPricesLoading] = useState(false);
   const [blogs, setBlogs] = useState(null);
   const [users, setUsers] = useState(null);
+  const [comments, setComments] = useState(null);
 
   useEffect(() => {
     // auto-login
@@ -126,7 +127,15 @@ function App() {
       .then((users) => {
         setUsers(users);
         setIsLoading(false);
-        console.log(users);
+      });
+  }, []);
+  useEffect(() => {
+    setIsLoading(true);
+    fetch("/comments")
+      .then((response) => response.json())
+      .then((comments) => {
+        setComments(comments);
+        setIsLoading(false);
       });
   }, []);
 
@@ -135,6 +144,14 @@ function App() {
       .then((response) => response.json())
       .then((blogs) => {
         setBlogs(blogs);
+      });
+  }
+
+  function onComment() {
+    fetch("/comments")
+      .then((response) => response.json())
+      .then((comments) => {
+        setComments(comments);
       });
   }
 
@@ -185,6 +202,9 @@ function App() {
               onLogin={setUser}
               blogs={blogs}
               users={users}
+              onComment={onComment}
+              comments={comments}
+              setComments={setComments}
             />
           }
         />
@@ -209,6 +229,9 @@ function App() {
               onLogin={setUser}
               blogs={blogs}
               users={users}
+              onComment={onComment}
+              comments={comments}
+              setComments={setComments}
             />
           }
         />
