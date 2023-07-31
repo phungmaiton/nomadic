@@ -22,7 +22,7 @@ export default function Community({ user, isLoading, blogs, onLogin }) {
       setFilteredBlogs(blogs);
     } else if (country) {
       const filteredBlogs = blogs.filter(
-        (blog) => blog.blog_country == country
+        (blog) => blog.blog_country === country
       );
       setFilteredBlogs(filteredBlogs);
     } else if (searchTerm) {
@@ -55,9 +55,12 @@ export default function Community({ user, isLoading, blogs, onLogin }) {
         <div className="container mx-auto px-10">
           <div className="grid grid-cols-1 md:grid-cols-3 items-end">
             <div className="col-span-1 md:col-span-2">
-              <h1 className="text-[#373737] font-[600] text-[40px] lg:text-[50px] xl:text-[50px] leading-[1] mb-[25px] md:mb-[32px]">
+              <h1 className="text-[#373737] font-[600] text-[40px] lg:text-[50px] xl:text-[50px] leading-[1] mb-[25px] md:mb-[20px]">
                 Community
               </h1>
+              <h6 className="text-[#373737] text-[15px] md:text-[16px] tracking-[2px] font-[600] mb-[20px] md:mb-[30px]">
+                Discover Cities through the Lens of Fellow Nomads
+              </h6>
               <DestinationSearch
                 setSearchTerm={setSearchTerm}
                 setCountry={setCountry}

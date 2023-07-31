@@ -53,8 +53,9 @@ a:hover {
 }
 
 .bg-gradient-1 {
-  @apply bg-gradient-to-r from-[#9BC1EE] to-[#598EC2]
+  @apply bg-gradient-to-r from-[#9BC1EE] to-[#b9d2f0]
 }
+
 
 .fixed-background {
   background: url(https://www.nationsonline.org/gallery/Switzerland/Sunrise-on-the-Matterhorn.jpg) no-repeat center center fixed;
@@ -93,6 +94,12 @@ a:hover {
 
 .banner-community {
   background: linear-gradient(to right, rgb(255, 255, 255), #598ec280), url(https://i.12go.co/images/upload-media/4328.jpeg) no-repeat center center;
+  background-size: cover;
+
+}
+
+.banner-nomadic-list {
+  background: linear-gradient(to right, rgb(255, 255, 255), #598ec280), url(https://media.nomadicmatt.com/2022/koreaguide1.jpg) no-repeat center center;
   background-size: cover;
 
 }
@@ -166,14 +173,15 @@ a:hover {
   min-width: 140px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  transition-delay: 0.2s;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
   display: block;
   padding-top: 10px;
   padding-bottom: 10px;
 }
-
 .username {
   display: block;
   padding: 10px;
@@ -215,6 +223,10 @@ a:hover {
 ------------------------------*/
 .column-div {
   @apply grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-center 
+}
+
+.two-column-div {
+  @apply grid grid-cols-1 gap-8 md:grid-cols-2 gap-6 items-center 
 }
 
 /* Cards
@@ -473,4 +485,18 @@ h4 {
 
 .blog-form-label {
   @apply mb-[8px] inline-block text-[20px] font-[600]
+}
+
+/* Nomadic List
+------------------------------*/
+.price-compare {
+  @apply items-center bg-white shadow-lg p-8 rounded-lg ease-in duration-150
+}
+
+.compare-input {
+  @apply w-[50px] text-[16px] font-[400] leading-[1.5] text-slate-900 bg-white border border-solid border-slate-900 outline-none px-[12px] py-[10px] mr-3 rounded-lg;
+}
+
+.total {
+  @apply w-full text-[16px] font-[400] leading-[1.5] text-slate-900 bg-white border border-solid border-slate-900 outline-none px-[12px] py-[8px] rounded-lg text-right; 
 }

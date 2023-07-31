@@ -8,7 +8,7 @@ export default function DestinationSearch({ setSearchTerm, setCountry }) {
   }
 
   return (
-    <div className="container m-auto px-2">
+    <div className="container m-auto px-0">
       <div className="flex flex-col md:flex-row">
         <input
           onChange={handleChange}

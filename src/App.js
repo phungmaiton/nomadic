@@ -9,6 +9,7 @@ import DestinationByID from "./components/Destinations/DestinationByID";
 import Community from "./components/Community/Community";
 import AddBlog from "./components/Community/AddBlog";
 import BlogByID from "./components/Community/BlogByID";
+import NomadicList from "./components/NomadicList/NomadicList";
 const calculateAveragePerPrice = (price) => {
   const { avg_usd, city } = price;
   const exchange_rate = city?.exchange_rate;
@@ -55,6 +56,7 @@ function App() {
   const [blogs, setBlogs] = useState(null);
   const [users, setUsers] = useState(null);
   const [comments, setComments] = useState(null);
+  const [userCities, setUserCities] = useState(null);
 
   useEffect(() => {
     // auto-login
@@ -139,6 +141,16 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetch("/usercities")
+      .then((response) => response.json())
+      .then((usercities) => {
+        setUserCities(usercities);
+        setIsLoading(false);
+      });
+  }, [updatedPrices, destinations]);
+
   function handleAddBlog() {
     fetch("/blogs")
       .then((response) => response.json())
@@ -152,6 +164,14 @@ function App() {
       .then((response) => response.json())
       .then((comments) => {
         setComments(comments);
+      });
+  }
+
+  function handleAddToList() {
+    fetch("/usercities")
+      .then((response) => response.json())
+      .then((usercities) => {
+        setUserCities(usercities);
       });
   }
 
@@ -178,6 +198,8 @@ function App() {
               onLogin={setUser}
               selectedCurrency={selectedCurrency}
               blogs={blogs}
+              userCities={userCities}
+              handleAddToList={handleAddToList}
             />
           }
         />
@@ -190,6 +212,8 @@ function App() {
               destinations={destinations}
               selectedCurrency={selectedCurrency}
               blogs={blogs}
+              userCities={userCities}
+              handleAddToList={handleAddToList}
             />
           }
         />
@@ -232,6 +256,17 @@ function App() {
               onComment={onComment}
               comments={comments}
               setComments={setComments}
+            />
+          }
+        />
+        <Route
+          path="/nomadic-list"
+          element={
+            <NomadicList
+              userCities={userCities}
+              prices={updatedPrices}
+              user={user}
+              selectedCurrency={selectedCurrency}
             />
           }
         />

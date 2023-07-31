@@ -17,9 +17,12 @@ function Banner({ setCountry, setSearchTerm }) {
             <div className="grid gap-9 lg:grid-cols-12 grid-cols-1 items-center">
               <div className="lg:col-span-12">
                 <div className="sm:text-center w-full lg:text-left mb-[50px] lg:mb-0 w-[900px]">
-                  <h1 className="text-[#373737] font-[600] text-[40px] lg:text-[50px] xl:text-[50px] leading-[1] mb-[25px] md:mb-[32px]">
+                  <h1 className="text-[#373737] font-[600] text-[40px] lg:text-[50px] xl:text-[50px] leading-[1] mb-[25px] md:mb-[20px]">
                     Find Your Perfect Abode with Nomadic
                   </h1>
+                  <h6 className="text-[#373737] text-[15px] md:text-[16px] tracking-[2px] font-[600] mb-[20px] md:mb-[30px]">
+                    Unveil Living Costs and Expenses Across the Globe
+                  </h6>
                   <DestinationSearch
                     setSearchTerm={setSearchTerm}
                     setCountry={setCountry}
@@ -55,7 +58,7 @@ export default function Destinations({
       setFilteredDestinations(destinations);
     } else if (country) {
       const filteredDestinations = destinations.filter(
-        (destination) => destination.country_name == country
+        (destination) => destination.country_name === country
       );
       setFilteredDestinations(filteredDestinations);
     } else if (searchTerm) {

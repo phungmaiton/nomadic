@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import PageTransition from "../Transitions/PageTransition";
 import BarLoader from "react-spinners/BarLoader";
 import Map from "./Map";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { error } from "jquery";
 
 function Banner({ img, city, country }) {
   return (
@@ -75,12 +78,27 @@ function RenderBlog({ title, author, id, img }) {
   );
 }
 
+const successAlert = () => {
+  toast.success("Added to Nomadic List", {
+    position: "bottom-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+  });
+};
+
 export default function DestinationByID({
   selectedCurrency,
   onLogin,
   user,
   prices,
   blogs,
+  userCities,
+  handleAddToList,
 }) {
   const { id } = useParams();
   const [destination, setDestination] = useState(null);
@@ -92,6 +110,15 @@ export default function DestinationByID({
   const [transportationPrices, setTransporationPrices] = useState(null);
   const [address, setAddress] = useState(null);
   const [cityBlogs, setCityBlogs] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [lastID, setLastID] = useState(0);
+
+  useEffect(() => {
+    if (userCities && userCities.length > 0) {
+      const lastid = userCities.slice(-1)[0].id;
+      setLastID(lastid);
+    }
+  });
 
   useEffect(() => {
     setIsLoading(true);
@@ -110,6 +137,7 @@ export default function DestinationByID({
         (price) => price.city_id === destination.id
       );
       setCityPrices(filteredPrices);
+      console.log(destination.id);
     }
   }, [destination, prices, id]);
 
@@ -151,6 +179,57 @@ export default function DestinationByID({
     }
   }, [blogs, destination]);
 
+  const handleAdd = () => {
+    const data = {
+      id: lastID + 1,
+      user_id: user.id,
+      city_id: destination.id,
+      rating: 0,
+    };
+    fetch("/usercities", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        console.log("Response received:", response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Data received:", data);
+        if (data.message === "success") {
+          successAlert();
+          handleAddToList();
+        } else {
+          setErrorMessage(data.errors);
+          toast.warning("Destination already in list", {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error add to list:", error);
+        toast.warning("Destination already in list", {
+          position: "bottom-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "light",
+        });
+      });
+  };
   return (
     <PageTransition>
       {!isLoading && destination ? (
@@ -229,7 +308,10 @@ export default function DestinationByID({
                     </div>
                     <div className="text-center mt-4">
                       {user ? (
-                        <NavLink className="px-btn px-btn-theme">
+                        <NavLink
+                          onClick={handleAdd}
+                          className="px-btn px-btn-theme"
+                        >
                           Add to List
                         </NavLink>
                       ) : (
@@ -246,7 +328,9 @@ export default function DestinationByID({
                   </div>
                   {cityBlogs && cityBlogs.length > 0 && (
                     <div className="related-posts mt-4">
-                      <h2 className="mb-3 text-[#0B4C84]">Related Posts</h2>
+                      <h2 className="mb-3 text-[#0B4C84] text-[25px]">
+                        From the community
+                      </h2>
                       {cityBlogs.map((blog) => (
                         <RenderBlog
                           key={blog.id}
@@ -269,6 +353,7 @@ export default function DestinationByID({
           className="pt-[120px] pb-[80px] lg:pt-[170px] lg:pb-[80px] relative overflow-hidden justify-center"
         />
       )}
+      <ToastContainer />
     </PageTransition>
   );
 }

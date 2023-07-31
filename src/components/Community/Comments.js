@@ -43,7 +43,7 @@ export default function Comments({
   useEffect(() => {
     if (blog && comments) {
       const blogcomments = comments.filter(
-        (comment) => comment.blog_id == blog.id
+        (comment) => comment.blog_id === blog.id
       );
       setBlogComments(blogcomments);
     }
@@ -59,7 +59,7 @@ export default function Comments({
       );
       setCurrentPosts(currentPosts);
     }
-  }, [currentPage, blogComments]);
+  }, [currentPage, blogComments, postsPerPage]);
 
   const paginate = ({ selected }) => {
     setCurrentPage(selected + 1);
