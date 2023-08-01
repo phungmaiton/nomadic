@@ -56,6 +56,9 @@ a:hover {
   @apply bg-gradient-to-r from-[#9BC1EE] to-[#b9d2f0]
 }
 
+.bg-gradient-2 {
+  @apply bg-gradient-to-r from-[#9BC1EE] to-[#598EC2]
+}
 
 .fixed-background {
   background: url(https://www.nationsonline.org/gallery/Switzerland/Sunrise-on-the-Matterhorn.jpg) no-repeat center center fixed;

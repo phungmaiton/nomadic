@@ -57,9 +57,11 @@ export default function CommentForm({
           if (data.message === "success") {
             setIsLoading(false);
             formik.resetForm();
+
             setComments([...comments, data]);
+
             onComment();
-            window.location.reload(false);
+            // window.location.reload(false);
           } else {
             setError(data.errors);
           }

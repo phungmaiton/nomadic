@@ -10,6 +10,7 @@ import Community from "./components/Community/Community";
 import AddBlog from "./components/Community/AddBlog";
 import BlogByID from "./components/Community/BlogByID";
 import NomadicList from "./components/NomadicList/NomadicList";
+import Dashboard from "./components/UserAuth/Dashboard";
 const calculateAveragePerPrice = (price) => {
   const { avg_usd, city } = price;
   const exchange_rate = city?.exchange_rate;
@@ -112,6 +113,8 @@ function App() {
     }
   }, [user]);
 
+  console.log(user);
+
   useEffect(() => {
     setIsLoading(true);
     fetch("/blogs")
@@ -140,6 +143,8 @@ function App() {
         setIsLoading(false);
       });
   }, []);
+
+  console.log(comments);
 
   useEffect(() => {
     setIsLoading(true);
@@ -174,6 +179,16 @@ function App() {
         setUserCities(usercities);
       });
   }
+
+  function handleUserChange() {
+    fetch("/users")
+      .then((response) => response.json())
+      .then((users) => {
+        setUsers(users);
+      });
+  }
+
+  console.log(users);
 
   return (
     <div>
@@ -268,6 +283,20 @@ function App() {
               user={user}
               selectedCurrency={selectedCurrency}
               handleAddToList={handleAddToList}
+            />
+          }
+        />
+
+        <Route
+          path="/dashboard"
+          element={
+            <Dashboard
+              user={user}
+              selectedCurrency={selectedCurrency}
+              blogs={blogs}
+              comments={comments}
+              handleUserChange={handleUserChange}
+              onLogin={setUser}
             />
           }
         />
