@@ -23,7 +23,6 @@ const Warning = ({
     }).then((response) => {
       if (response.ok) {
         handleAddToList();
-        window.location.reload(false);
       }
     });
   };

@@ -44,10 +44,10 @@ export default function Header({
           <div className="logo">
             <NavLink to="/">
               <img
-                src="/img/nomadic-pin.png"
+                src="/img/nomadic-logo.png"
                 title="Logo"
                 alt="Logo"
-                width="45px"
+                width="200px"
               />
             </NavLink>
           </div>
