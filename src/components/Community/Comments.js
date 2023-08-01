@@ -94,7 +94,7 @@ export default function Comments({
             <Comment key={comment.id} comment={comment} />
           ))}
       </div>
-      {currentPosts && (
+      {currentPosts && currentPosts.length > 0 && (
         <Pagination
           paginate={paginate}
           array={blogComments}

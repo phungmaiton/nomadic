@@ -161,7 +161,7 @@ a:hover {
 }
 
 .dropdown {
-  @apply relative flex
+  @apply relative flex 
 }
 
 .dropdown-content {
@@ -175,8 +175,11 @@ a:hover {
   z-index: 1;
   transition-delay: 0.2s;
 }
+.nav-profile {
+  @apply ms-auto hidden lg:flex bg-white/50 rounded-lg ml-3 py-1 px-1 
+}
 
-.dropdown:hover .dropdown-content,
+.nav-profile:hover .dropdown-content,
 .dropdown-content:hover {
   display: block;
   padding-top: 10px;
@@ -386,12 +389,12 @@ nav-avatar:hover {
 
 .dashboard-icon {
   font-size: 15px;
-  color:#87AF73;
+  color: #0B4C84;
   margin-bottom: 5px;
 }
 
 .dashboard-icon:hover {
-  @apply ease-in text-[#373737] 
+  @apply ease-in text-[#091D36] 
 }
 
 .dashboard-half {

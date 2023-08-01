@@ -2,6 +2,7 @@ import PageTransition from "../Transitions/PageTransition";
 import { useState, useEffect } from "react";
 import BarLoader from "react-spinners/BarLoader";
 import RenderPrice from "./RenderPrice";
+import Pagination from "../Pagination/Pagination";
 
 export default function NomadicList({
   selectedCurrency,
@@ -9,10 +10,14 @@ export default function NomadicList({
   prices,
   blogs,
   userCities,
+  handleAddToList,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [destinations, setDestinations] = useState(null);
   const [lastID, setLastID] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(2);
+  const [currentPosts, setCurrentPosts] = useState(null);
 
   useEffect(() => {
     if (userCities && userCities.length > 0 && prices) {
@@ -32,11 +37,26 @@ export default function NomadicList({
         });
         setDestinations(destinations);
       }
-
       const lastid = userCities.slice(-1)[0].id;
       setLastID(lastid);
     }
   }, [userCities, prices]);
+
+  useEffect(() => {
+    if (destinations) {
+      const indexOfLastPost = currentPage * postsPerPage;
+      const indexOfFirstPost = indexOfLastPost - postsPerPage;
+      const currentPosts = destinations.slice(
+        indexOfFirstPost,
+        indexOfLastPost
+      );
+      setCurrentPosts(currentPosts);
+    }
+  }, [currentPage, destinations, postsPerPage]);
+
+  const paginate = ({ selected }) => {
+    setCurrentPage(selected + 1);
+  };
 
   return (
     <PageTransition>
@@ -57,19 +77,29 @@ export default function NomadicList({
       <section className="py-[5%] lg:py-[3%] relative overflow-hidden">
         <div className="container mx-auto px-10">
           <div className="two-column-div">
-            {destinations ? (
-              destinations.map((destination) => (
+            {currentPosts ? (
+              currentPosts.map((destination) => (
                 <RenderPrice
                   destination={destination}
                   key={destination.city_id}
                   selectedCurrency={selectedCurrency}
+                  handleAddToList={handleAddToList}
+                  user={user}
+                  userCities={userCities}
                 />
               ))
             ) : (
-              <BarLoader color="#0B4C84" />
+              <div>Your list is empty</div>
             )}
           </div>
         </div>
+        {currentPosts && currentPosts.length > 0 && (
+          <Pagination
+            paginate={paginate}
+            array={destinations}
+            postsPerPage={postsPerPage}
+          />
+        )}
       </section>
     </PageTransition>
   );

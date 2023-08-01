@@ -120,15 +120,26 @@ export default function Header({
                 </>
               )}
               {isOpenMenu && user && (
-                <div className="lg:flex pr-[10px]">
-                  <NavLink
-                    className="px-btn px-btn-theme"
-                    to="/dashboard"
-                    onClick={() => setIsOpenMenu(false)}
-                  >
-                    Dashboard
-                  </NavLink>
-                </div>
+                <>
+                  <div className="lg:flex pr-[10px]">
+                    <NavLink
+                      className="px-btn px-btn-theme"
+                      to="/dashboard"
+                      onClick={() => setIsOpenMenu(false)}
+                    >
+                      Dashboard
+                    </NavLink>
+                  </div>
+                  <div className="lg:flex pr-[10px] mt-3">
+                    <NavLink
+                      className="px-btn px-btn-dark"
+                      to="/nomadic-list"
+                      onClick={() => setIsOpenMenu(false)}
+                    >
+                      Nomadic List
+                    </NavLink>
+                  </div>
+                </>
               )}
 
               {isOpenMenu && user && (
@@ -200,7 +211,7 @@ export default function Header({
                 </select>
               </div>
 
-              <div className="ms-auto hidden lg:flex bg-white/50 rounded-lg ml-3 py-1 px-1 dropdown">
+              <div className="nav-profile">
                 <div className="dropdown">
                   {user && <span className="username">{user.username}</span>}
                   <img
@@ -232,7 +243,7 @@ export default function Header({
                     </NavLink>
                     <NavLink
                       to="/nomadic-list"
-                      className="flex flex-col items-center spacy-y-1.5 relative text-xs"
+                      className="flex flex-col items-center spacy-y-1.5 relative text-xs mb-2"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

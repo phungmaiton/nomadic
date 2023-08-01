@@ -267,6 +267,7 @@ function App() {
               prices={updatedPrices}
               user={user}
               selectedCurrency={selectedCurrency}
+              handleAddToList={handleAddToList}
             />
           }
         />

@@ -1,7 +1,55 @@
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function RenderPrice({ destination, selectedCurrency }) {
+const Warning = ({
+  closeToast,
+  toastProps,
+  id,
+  handleAddToList,
+  user,
+  userCities,
+}) => {
+  const usercity = userCities.filter(
+    (usercity) => usercity.city_id === id && usercity.user_id === user.id
+  );
+
+  const usercity_id = usercity[0].id;
+
+  const handleYes = () => {
+    fetch(`/usercities/${usercity_id}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (response.ok) {
+        handleAddToList();
+        window.location.reload(false);
+      }
+    });
+  };
+
+  return (
+    <div className="items-center">
+      Are you sure you want to remove this destination from your list?
+      <div className="flex flex-row items-center mt-2">
+        <button className="px-btn px-btn-theme mr-2" onClick={handleYes}>
+          Yes
+        </button>
+        <button className="px-btn px-btn-theme" onClick={closeToast}>
+          No
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default function RenderPrice({
+  destination,
+  selectedCurrency,
+  handleAddToList,
+  user,
+  userCities,
+}) {
   const [restaurantPrices, setRestaurantPrice] = useState(null);
   const [rentPrices, setRentPrices] = useState(null);
   const [utilityPrices, setUtilityPrices] = useState(null);
@@ -34,6 +82,26 @@ export default function RenderPrice({ destination, selectedCurrency }) {
     }
   }, [destination]);
 
+  const displayWarning = (id) => {
+    toast.warning(
+      <Warning
+        id={id}
+        handleAddToList={handleAddToList}
+        user={user}
+        userCities={userCities}
+      />,
+      {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      }
+    );
+  };
   const formik = useFormik({
     initialValues: {
       rent_1: 0,
@@ -99,9 +167,33 @@ export default function RenderPrice({ destination, selectedCurrency }) {
     },
   });
   return (
-    <form className="price-compare" onSubmit={formik.handleSubmit}>
-      <div>
-        <h2>{destination.city_name}</h2>
+    <form
+      className="price-compare"
+      id="price-compare"
+      onSubmit={formik.handleSubmit}
+    >
+      <div className="grid grid-cols-3 md:grid-cols-6">
+        <h2 className="col-span-2 md:col-span-5">{destination.city_name}</h2>
+        <div
+          className="lg:col-span-1 text-right mb-0 lg:mb-0 lg:ml-[10%] flex justify-end items-top"
+          onClick={() => displayWarning(destination.city_id)}
+          type="button"
+        >
+          <div className="flex flex-col items-center spacy-y-1.5 relative text-xs">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className="bi bi-x-square dashboard-icon cursor-pointer"
+              viewBox="0 0 16 16"
+            >
+              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+            </svg>
+            <p>Remove</p>
+          </div>
+        </div>
       </div>
       <div>
         <h3 className="text-[#0B4C84] mt-4 mb-3">Rent Per Month</h3>
@@ -276,6 +368,7 @@ export default function RenderPrice({ destination, selectedCurrency }) {
           />
         </div>
       </div>
+      <ToastContainer />
     </form>
   );
 }

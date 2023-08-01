@@ -5,7 +5,17 @@ import BarLoader from "react-spinners/BarLoader";
 import Map from "./Map";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { error } from "jquery";
+
+const Success = () => {
+  return (
+    <div className="flex flex-col items-center">
+      Added to Nomadic List.
+      <NavLink className="px-btn px-btn-theme mt-2" to="/nomadic-list">
+        Go to list
+      </NavLink>
+    </div>
+  );
+};
 
 function Banner({ img, city, country }) {
   return (
@@ -77,9 +87,8 @@ function RenderBlog({ title, author, id, img }) {
     </div>
   );
 }
-
 const successAlert = () => {
-  toast.success("Added to Nomadic List", {
+  toast.success(Success, {
     position: "bottom-center",
     autoClose: 3000,
     hideProgressBar: false,
@@ -306,7 +315,7 @@ export default function DestinationByID({
                         <BarLoader color="#0B4C84" />
                       )}
                     </div>
-                    <div className="text-center mt-4">
+                    <div className="text-center mt-16">
                       {user ? (
                         <NavLink
                           onClick={handleAdd}
