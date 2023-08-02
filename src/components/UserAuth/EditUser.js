@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import countryList from "react-select-country-list";
 
 const failureAlert = () => {
-  toast.warning("Failed to edit user.", {
+  toast.warning("Username already exists", {
     position: "bottom-center",
     autoClose: 4000,
     hideProgressBar: false,
@@ -29,7 +29,7 @@ export default function EditUser({
   const [country, setCountry] = useState(user.country);
   const [currency, setCurrency] = useState(user.currency_code);
   const successAlert = () => {
-    toast.success("Username already exists", {
+    toast.success("Updated successfully", {
       position: "bottom-center",
       autoClose: 4000,
       hideProgressBar: false,

@@ -21,33 +21,29 @@ export default function NomadicList({
 
   useEffect(() => {
     if (userCities && userCities.length > 0 && prices && user) {
-      const citiesID = userCities.map((city) => city.city_id);
-      const userID = userCities
-        .map((user) => user.user_id)
-        .filter((x) => x === user.id)[0];
-
-      console.log(userID);
+      const citiesID = userCities
+        .filter((city) => city.user_id === user.id)
+        .map((city) => city.city_id);
 
       if (citiesID && prices && user) {
         const destinations = citiesID.map((city_id) => {
           const cityPrices = prices.filter(
             (price) => price.city_id === city_id
           );
-          console.log(cityPrices);
           const city_name =
             cityPrices.length > 0 ? cityPrices[0].city.city_name : "";
           return {
             city_id,
             city_name,
             prices: cityPrices,
-            userID: userID,
           };
         });
         setDestinations(destinations);
-        console.log(destinations);
       }
       const lastid = userCities.slice(-1)[0].id;
       setLastID(lastid);
+
+      console.log(destinations);
     }
   }, [userCities, prices]);
 
@@ -55,9 +51,10 @@ export default function NomadicList({
     if (destinations) {
       const indexOfLastPost = currentPage * postsPerPage;
       const indexOfFirstPost = indexOfLastPost - postsPerPage;
-      const currentPosts = destinations
-        .filter((destination) => destination.userID === user.id)
-        .slice(indexOfFirstPost, indexOfLastPost);
+      const currentPosts = destinations.slice(
+        indexOfFirstPost,
+        indexOfLastPost
+      );
       setCurrentPosts(currentPosts);
     }
   }, [currentPage, destinations, postsPerPage]);

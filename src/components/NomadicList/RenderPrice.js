@@ -53,6 +53,7 @@ export default function RenderPrice({
   const [rentPrices, setRentPrices] = useState(null);
   const [utilityPrices, setUtilityPrices] = useState(null);
   const [transportationPrices, setTransporationPrices] = useState(null);
+  const [rent_1, setRent_1] = useState(null);
 
   useEffect(() => {
     if (destination) {
@@ -61,7 +62,6 @@ export default function RenderPrice({
           price.category_name === "Restaurants" && price.user_id === user.id
       );
       setRestaurantPrice(restaurant_prices);
-      console.log(destination);
 
       const rent_prices = destination.prices.filter(
         (price) => price.category_name === "Rent Per Month"
@@ -80,10 +80,8 @@ export default function RenderPrice({
       );
 
       setTransporationPrices(transportation_prices);
-
-      console.log(destination);
     }
-  }, [destination]);
+  }, [destination, userCities, user]);
 
   const displayWarning = (id) => {
     toast.warning(
@@ -171,7 +169,7 @@ export default function RenderPrice({
   });
   return (
     <>
-      {destination && user && destination.userID === user.id ? (
+      {destination ? (
         <form
           className="price-compare"
           id="price-compare"

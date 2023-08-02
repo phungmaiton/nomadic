@@ -19,7 +19,7 @@ const Warning = ({ closeToast, toastProps, id, handleAddBlog }) => {
 
   return (
     <div className="items-center">
-      Are you sure you want to remove this destination from your list?
+      Are you sure you want to remove this blog post?
       <div className="flex flex-row items-center mt-2">
         <button className="px-btn px-btn-theme mr-2" onClick={handleYes}>
           Yes
@@ -52,12 +52,15 @@ function RenderBlog({ title, author, id, img, handleAddBlog }) {
       <div className="lg:col-span-4">
         <NavLink to={`/community/${id}`} className="text-left">
           <h3 className="leading-[18px] text-[16px]">
-            {title.length < 50 ? title : title.substring(0, 50) + "..."}
+            {title.length < 90 ? title : title.substring(0, 90) + "..."}
           </h3>
         </NavLink>
         <p className="text-[13px] pt-2">by {author}</p>
         <div className="lg:col-span-1 text-right mb-0 lg:mb-0 lg:ml-[10%] flex justify-end items-top">
-          <div className="flex flex-col items-center spacy-y-1.5 relative text-xs mr-3">
+          <NavLink
+            to={`/community/${id}/edit`}
+            className="flex flex-col items-center spacy-y-1.5 relative text-xs mr-3"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -73,7 +76,7 @@ function RenderBlog({ title, author, id, img, handleAddBlog }) {
               />
             </svg>
             <p>Edit</p>
-          </div>
+          </NavLink>
           <div
             className="flex flex-col items-center spacy-y-1.5 relative text-xs"
             onClick={() => displayWarning(id)}

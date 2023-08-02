@@ -11,9 +11,8 @@ export default function Home({ isLoading, blogs, destinations, userCities }) {
 
   useEffect(() => {
     if (blogs) {
-      const sorted_blogs = blogs.sort((a, b) => b.id - a.id).slice(0, 4);
+      const sorted_blogs = [...blogs].sort((a, b) => b.id - a.id).slice(0, 4);
       setSortedBlogs(sorted_blogs);
-      console.log(sortedBlogs);
     }
   }, [blogs]);
 
@@ -21,6 +20,24 @@ export default function Home({ isLoading, blogs, destinations, userCities }) {
     if (destinations && userCities) {
       const citiesID = userCities.map((city) => city.city_id);
       console.log(citiesID);
+
+      const cityIdCounts = citiesID.reduce((acc, cityId) => {
+        acc[cityId] = (acc[cityId] || 0) + 1;
+        return acc;
+      }, {});
+
+      function compareDestinations(a, b) {
+        const cityIdA = a.id;
+        const cityIdB = b.id;
+        const countA = cityIdCounts[cityIdA] || 0;
+        const countB = cityIdCounts[cityIdB] || 0;
+        return countB - countA;
+      }
+
+      setSortedDestinations(
+        [...destinations].sort(compareDestinations).slice(0, 4)
+      );
+      console.log(sortedDestinations);
     }
   }, [destinations, userCities]);
   return (
@@ -28,7 +45,7 @@ export default function Home({ isLoading, blogs, destinations, userCities }) {
       <div>
         <Banner />
       </div>
-      <div className="container mx-auto px-10 mt-5">
+      <div className="container mx-auto px-10 pt-[80px] pb-[100px]">
         <h2>New in Community</h2>
         <div className="column-div pt-5">
           {!sortedBlogs ? (
@@ -49,6 +66,26 @@ export default function Home({ isLoading, blogs, destinations, userCities }) {
               />
             ))
           )}
+        </div>
+      </div>
+      <div className="bg-gradient-2 pt-[20px] pb-[100px]">
+        <div className="container mx-auto px-10 mt-5 ">
+          <h2>Popular Destinations</h2>
+          <div className="column-div pt-5">
+            {!sortedDestinations ? (
+              <BarLoader color="#0B4C84" />
+            ) : (
+              sortedDestinations.map((destination) => (
+                <DestinationItem
+                  key={destination.id}
+                  city={destination.city_name}
+                  country={destination.country_name}
+                  id={destination.id}
+                  img={destination.img}
+                />
+              ))
+            )}
+          </div>
         </div>
       </div>
     </PageTransition>

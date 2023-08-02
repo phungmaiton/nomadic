@@ -11,6 +11,7 @@ import AddBlog from "./components/Community/AddBlog";
 import BlogByID from "./components/Community/BlogByID";
 import NomadicList from "./components/NomadicList/NomadicList";
 import Dashboard from "./components/UserAuth/Dashboard";
+import EditBlog from "./components/Community/EditBlog";
 const calculateAveragePerPrice = (price) => {
   const { avg_usd, city } = price;
   const exchange_rate = city?.exchange_rate;
@@ -307,6 +308,17 @@ function App() {
                 blogs={blogs}
                 comments={comments}
                 handleUserChange={handleUserChange}
+                onLogin={setUser}
+                handleAddBlog={handleAddBlog}
+              />
+            }
+          />
+          <Route
+            path="/community/:id/edit"
+            element={
+              <EditBlog
+                user={user}
+                blogs={blogs}
                 onLogin={setUser}
                 handleAddBlog={handleAddBlog}
               />
