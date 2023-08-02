@@ -15,7 +15,7 @@ export default function Banner() {
             <div className="grid gap-9 lg:grid-cols-12 grid-cols-1 items-center">
               <div className="lg:col-span-7">
                 <div className="sm:text-left lg:text-left mb-[50px] lg:mb-0">
-                  <h1 className="text-[#373737] font-[600] text-[40px] lg:text-[60px] xl:text-[64px] leading-[1] mb-[25px] md:mb-[32px]">
+                  <h1 className="text-[#373737] font-[700] text-[40px] lg:text-[60px] xl:text-[64px] leading-[1] mb-[25px] md:mb-[32px]">
                     Discover Your Next Home with Nomadic
                   </h1>
                   <h6 className="text-[#373737] text-[15px] md:text-[16px] tracking-[2px] font-[600] mb-[20px] md:mb-[30px]">

@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import Home from "./components/Home/Home";
 import Header from "./components/Navigation/Header";
 import Login from "./components/UserAuth/Login";
@@ -43,6 +43,7 @@ const updatePrices = async (prices) => {
   const updatedPrices = await Promise.all(prices.map(calculateAveragePerPrice));
   return updatedPrices.filter((price) => price !== null);
 };
+const UserContext = createContext();
 
 function App() {
   const location = useLocation();
@@ -192,117 +193,130 @@ function App() {
 
   return (
     <div>
-      <Header
-        user={user}
-        setUser={setUser}
-        selectedCurrency={selectedCurrency}
-        handleCurrencyChange={setSelectedCurrency}
-      />
-      <Routes locations={location} key={location.pathname}>
-        <Route exact path="/" element={<Home isLoading={isLoading} />} />
-        <Route path="/login" element={<Login onLogin={setUser} />} />
-        <Route path="/signup" element={<Signup onLogin={setUser} />} />
-        <Route
-          path="/destinations"
-          element={
-            <Destinations
-              user={user}
-              destinations={destinations}
-              prices={updatedPrices}
-              isLoading={isLoading}
-              onLogin={setUser}
-              selectedCurrency={selectedCurrency}
-              blogs={blogs}
-              userCities={userCities}
-              handleAddToList={handleAddToList}
-            />
-          }
+      <UserContext.Provider value={{ user, setUser }}>
+        <Header
+          selectedCurrency={selectedCurrency}
+          handleCurrencyChange={setSelectedCurrency}
         />
-        <Route
-          path="/destinations/:id"
-          element={
-            <DestinationByID
-              prices={updatedPrices}
-              user={user}
-              destinations={destinations}
-              selectedCurrency={selectedCurrency}
-              blogs={blogs}
-              userCities={userCities}
-              handleAddToList={handleAddToList}
-            />
-          }
-        />
-        <Route
-          path="/community"
-          element={
-            <Community
-              user={user}
-              isLoading={isLoading}
-              onLogin={setUser}
-              blogs={blogs}
-              users={users}
-              onComment={onComment}
-              comments={comments}
-              setComments={setComments}
-            />
-          }
-        />
+        <Routes locations={location} key={location.pathname}>
+          <Route
+            exact
+            path="/"
+            element={
+              <Home
+                isLoading={isLoading}
+                blogs={blogs}
+                destinations={destinations}
+                userCities={userCities}
+              />
+            }
+          />
+          <Route path="/login" element={<Login onLogin={setUser} />} />
+          <Route path="/signup" element={<Signup onLogin={setUser} />} />
+          <Route
+            path="/destinations"
+            element={
+              <Destinations
+                user={user}
+                destinations={destinations}
+                prices={updatedPrices}
+                isLoading={isLoading}
+                onLogin={setUser}
+                selectedCurrency={selectedCurrency}
+                blogs={blogs}
+                userCities={userCities}
+                handleAddToList={handleAddToList}
+              />
+            }
+          />
+          <Route
+            path="/destinations/:id"
+            element={
+              <DestinationByID
+                prices={updatedPrices}
+                user={user}
+                destinations={destinations}
+                selectedCurrency={selectedCurrency}
+                blogs={blogs}
+                userCities={userCities}
+                handleAddToList={handleAddToList}
+              />
+            }
+          />
+          <Route
+            path="/community"
+            element={
+              <Community
+                user={user}
+                isLoading={isLoading}
+                onLogin={setUser}
+                blogs={blogs}
+                users={users}
+                onComment={onComment}
+                comments={comments}
+                setComments={setComments}
+              />
+            }
+          />
 
-        <Route
-          path="/add-blog"
-          element={
-            <AddBlog
-              user={user}
-              blogs={blogs}
-              onLogin={setUser}
-              handleAddBlog={handleAddBlog}
-            />
-          }
-        />
-        <Route
-          path="/community/:id"
-          element={
-            <BlogByID
-              user={user}
-              isLoading={isLoading}
-              onLogin={setUser}
-              blogs={blogs}
-              users={users}
-              onComment={onComment}
-              comments={comments}
-              setComments={setComments}
-            />
-          }
-        />
-        <Route
-          path="/nomadic-list"
-          element={
-            <NomadicList
-              userCities={userCities}
-              prices={updatedPrices}
-              user={user}
-              selectedCurrency={selectedCurrency}
-              handleAddToList={handleAddToList}
-            />
-          }
-        />
+          <Route
+            path="/add-blog"
+            element={
+              <AddBlog
+                user={user}
+                blogs={blogs}
+                onLogin={setUser}
+                handleAddBlog={handleAddBlog}
+              />
+            }
+          />
+          <Route
+            path="/community/:id"
+            element={
+              <BlogByID
+                user={user}
+                isLoading={isLoading}
+                onLogin={setUser}
+                blogs={blogs}
+                users={users}
+                onComment={onComment}
+                comments={comments}
+                setComments={setComments}
+              />
+            }
+          />
+          <Route
+            path="/nomadic-list"
+            element={
+              <NomadicList
+                userCities={userCities}
+                prices={updatedPrices}
+                user={user}
+                selectedCurrency={selectedCurrency}
+                handleAddToList={handleAddToList}
+              />
+            }
+          />
 
-        <Route
-          path="/dashboard"
-          element={
-            <Dashboard
-              user={user}
-              selectedCurrency={selectedCurrency}
-              blogs={blogs}
-              comments={comments}
-              handleUserChange={handleUserChange}
-              onLogin={setUser}
-            />
-          }
-        />
-      </Routes>
+          <Route
+            path="/dashboard"
+            element={
+              <Dashboard
+                user={user}
+                selectedCurrency={selectedCurrency}
+                blogs={blogs}
+                comments={comments}
+                handleUserChange={handleUserChange}
+                onLogin={setUser}
+                handleAddBlog={handleAddBlog}
+              />
+            }
+          />
+        </Routes>
+      </UserContext.Provider>
     </div>
   );
 }
 
 export default App;
+export { UserContext };

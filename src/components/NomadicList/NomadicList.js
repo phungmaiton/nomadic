@@ -20,22 +20,31 @@ export default function NomadicList({
   const [currentPosts, setCurrentPosts] = useState(null);
 
   useEffect(() => {
-    if (userCities && userCities.length > 0 && prices) {
+    if (userCities && userCities.length > 0 && prices && user) {
       const citiesID = userCities.map((city) => city.city_id);
-      if (citiesID && prices) {
+      const userID = userCities
+        .map((user) => user.user_id)
+        .filter((x) => x === user.id)[0];
+
+      console.log(userID);
+
+      if (citiesID && prices && user) {
         const destinations = citiesID.map((city_id) => {
           const cityPrices = prices.filter(
             (price) => price.city_id === city_id
           );
+          console.log(cityPrices);
           const city_name =
             cityPrices.length > 0 ? cityPrices[0].city.city_name : "";
           return {
             city_id,
             city_name,
             prices: cityPrices,
+            userID: userID,
           };
         });
         setDestinations(destinations);
+        console.log(destinations);
       }
       const lastid = userCities.slice(-1)[0].id;
       setLastID(lastid);
@@ -46,10 +55,9 @@ export default function NomadicList({
     if (destinations) {
       const indexOfLastPost = currentPage * postsPerPage;
       const indexOfFirstPost = indexOfLastPost - postsPerPage;
-      const currentPosts = destinations.slice(
-        indexOfFirstPost,
-        indexOfLastPost
-      );
+      const currentPosts = destinations
+        .filter((destination) => destination.userID === user.id)
+        .slice(indexOfFirstPost, indexOfLastPost);
       setCurrentPosts(currentPosts);
     }
   }, [currentPage, destinations, postsPerPage]);
@@ -77,7 +85,7 @@ export default function NomadicList({
       <section className="py-[5%] lg:py-[3%] relative overflow-hidden">
         <div className="container mx-auto px-10">
           <div className="two-column-div">
-            {currentPosts ? (
+            {currentPosts && currentPosts.length > 0 ? (
               currentPosts.map((destination) => (
                 <RenderPrice
                   destination={destination}

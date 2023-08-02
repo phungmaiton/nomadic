@@ -1,16 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { UserContext } from "../../App";
 
 /*--------------------
 * Header
 ----------------------*/
 
-export default function Header({
-  user,
-  setUser,
-  selectedCurrency,
-  handleCurrencyChange,
-}) {
+export default function Header({ selectedCurrency, handleCurrencyChange }) {
+  const { user, setUser } = useContext(UserContext);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigate = useNavigate();
   function handleLogoutClick() {

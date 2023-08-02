@@ -57,9 +57,11 @@ export default function RenderPrice({
   useEffect(() => {
     if (destination) {
       const restaurant_prices = destination.prices.filter(
-        (price) => price.category_name === "Restaurants"
+        (price) =>
+          price.category_name === "Restaurants" && price.user_id === user.id
       );
       setRestaurantPrice(restaurant_prices);
+      console.log(destination);
 
       const rent_prices = destination.prices.filter(
         (price) => price.category_name === "Rent Per Month"
@@ -78,6 +80,8 @@ export default function RenderPrice({
       );
 
       setTransporationPrices(transportation_prices);
+
+      console.log(destination);
     }
   }, [destination]);
 
@@ -166,208 +170,219 @@ export default function RenderPrice({
     },
   });
   return (
-    <form
-      className="price-compare"
-      id="price-compare"
-      onSubmit={formik.handleSubmit}
-    >
-      <div className="grid grid-cols-3 md:grid-cols-6">
-        <h2 className="col-span-2 md:col-span-5">{destination.city_name}</h2>
-        <div
-          className="lg:col-span-1 text-right mb-0 lg:mb-0 lg:ml-[10%] flex justify-end items-top"
-          onClick={() => displayWarning(destination.city_id)}
-          type="button"
+    <>
+      {destination && user && destination.userID === user.id ? (
+        <form
+          className="price-compare"
+          id="price-compare"
+          onSubmit={formik.handleSubmit}
         >
-          <div className="flex flex-col items-center spacy-y-1.5 relative text-xs">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="bi bi-x-square dashboard-icon cursor-pointer"
-              viewBox="0 0 16 16"
+          <div className="grid grid-cols-3 md:grid-cols-6">
+            <h2 className="col-span-2 md:col-span-5">
+              {destination.city_name}
+            </h2>
+            <div
+              className="lg:col-span-1 text-right mb-0 lg:mb-0 lg:ml-[10%] flex justify-end items-top"
+              onClick={() => displayWarning(destination.city_id)}
+              type="button"
             >
-              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-            </svg>
-            <p>Remove</p>
+              <div className="flex flex-col items-center spacy-y-1.5 relative text-xs">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-x-square dashboard-icon cursor-pointer"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+                <p>Remove</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div>
-        <h3 className="text-[#0B4C84] mt-4 mb-3">Rent Per Month</h3>
-        {rentPrices &&
-          rentPrices.length > 0 &&
-          rentPrices.map((rentPrice, index) => (
-            <div key={rentPrice.id} className="grid grid-cols-3 md:grid-cols-6">
-              <div className="col-span-2 md:col-span-4">
-                <div className="flex items-start mb-1">
-                  <input
-                    type="text"
-                    id={`rent_${index + 1}`}
-                    name={`rent_${index + 1}`}
-                    className="compare-input"
-                    autoComplete="off"
-                    onChange={formik.handleChange}
-                    value={formik.values[`rent_${index + 1}`]}
-                  />
-                  <h4>{rentPrice.item_name}</h4>
+          <div>
+            <h3 className="text-[#0B4C84] mt-4 mb-3">Rent Per Month</h3>
+            {rentPrices &&
+              rentPrices.length > 0 &&
+              rentPrices.map((rentPrice, index) => (
+                <div
+                  key={rentPrice.id}
+                  className="grid grid-cols-3 md:grid-cols-6"
+                >
+                  <div className="col-span-2 md:col-span-4">
+                    <div className="flex items-start mb-1">
+                      <input
+                        type="text"
+                        id={`rent_${index + 1}`}
+                        name={`rent_${index + 1}`}
+                        className="compare-input"
+                        autoComplete="off"
+                        onChange={formik.handleChange}
+                        value={formik.values[`rent_${index + 1}`]}
+                      />
+                      <h4>{rentPrice.item_name}</h4>
+                    </div>
+                  </div>
+                  <div className="col-span-1 md:col-span-2 text-right">
+                    <h4>
+                      {selectedCurrency === "USD"
+                        ? `$ ${rentPrice.averagePrices.USD}`
+                        : selectedCurrency === "EUR"
+                        ? `€ ${rentPrice.averagePrices.EUR}`
+                        : selectedCurrency === "CAD"
+                        ? `C$ ${rentPrice.averagePrices.CAD}`
+                        : selectedCurrency === "GBP"
+                        ? `£ ${rentPrice.averagePrices.GBP}`
+                        : selectedCurrency === "SGD"
+                        ? `S$ ${rentPrice.averagePrices.SGD}`
+                        : `A$ ${rentPrice.averagePrices.AUD}`}
+                    </h4>
+                  </div>
                 </div>
-              </div>
-              <div className="col-span-1 md:col-span-2 text-right">
-                <h4>
-                  {selectedCurrency === "USD"
-                    ? `$ ${rentPrice.averagePrices.USD}`
-                    : selectedCurrency === "EUR"
-                    ? `€ ${rentPrice.averagePrices.EUR}`
-                    : selectedCurrency === "CAD"
-                    ? `C$ ${rentPrice.averagePrices.CAD}`
-                    : selectedCurrency === "GBP"
-                    ? `£ ${rentPrice.averagePrices.GBP}`
-                    : selectedCurrency === "SGD"
-                    ? `S$ ${rentPrice.averagePrices.SGD}`
-                    : `A$ ${rentPrice.averagePrices.AUD}`}
-                </h4>
-              </div>
-            </div>
-          ))}
-      </div>
-      <div>
-        <h3 className="text-[#0B4C84] mt-4 mb-3">Restaurants</h3>
-        {restaurantPrices &&
-          restaurantPrices.length > 0 &&
-          restaurantPrices.map((price, index) => (
-            <div key={price.id} className="grid grid-cols-3 md:grid-cols-6">
-              <div className="col-span-2 md:col-span-4">
-                <div className="flex items-start mb-1">
-                  <input
-                    type="text"
-                    id={`restaurant_${index + 1}`}
-                    name={`restaurant_${index + 1}`}
-                    className="compare-input"
-                    autoComplete="off"
-                    onChange={formik.handleChange}
-                    value={formik.values[`restaurant_${index + 1}`]}
-                  />
-                  <h4>{price.item_name}</h4>
+              ))}
+          </div>
+          <div>
+            <h3 className="text-[#0B4C84] mt-4 mb-3">Restaurants</h3>
+            {restaurantPrices &&
+              restaurantPrices.length > 0 &&
+              restaurantPrices.map((price, index) => (
+                <div key={price.id} className="grid grid-cols-3 md:grid-cols-6">
+                  <div className="col-span-2 md:col-span-4">
+                    <div className="flex items-start mb-1">
+                      <input
+                        type="text"
+                        id={`restaurant_${index + 1}`}
+                        name={`restaurant_${index + 1}`}
+                        className="compare-input"
+                        autoComplete="off"
+                        onChange={formik.handleChange}
+                        value={formik.values[`restaurant_${index + 1}`]}
+                      />
+                      <h4>{price.item_name}</h4>
+                    </div>
+                  </div>
+                  <div className="col-span-1 md:col-span-2 text-right">
+                    <h4>
+                      {selectedCurrency === "USD"
+                        ? `$ ${price.averagePrices.USD}`
+                        : selectedCurrency === "EUR"
+                        ? `€ ${price.averagePrices.EUR}`
+                        : selectedCurrency === "CAD"
+                        ? `C$ ${price.averagePrices.CAD}`
+                        : selectedCurrency === "GBP"
+                        ? `£ ${price.averagePrices.GBP}`
+                        : selectedCurrency === "SGD"
+                        ? `S$ ${price.averagePrices.SGD}`
+                        : `A$ ${price.averagePrices.AUD}`}
+                    </h4>
+                  </div>
                 </div>
-              </div>
-              <div className="col-span-1 md:col-span-2 text-right">
-                <h4>
-                  {selectedCurrency === "USD"
-                    ? `$ ${price.averagePrices.USD}`
-                    : selectedCurrency === "EUR"
-                    ? `€ ${price.averagePrices.EUR}`
-                    : selectedCurrency === "CAD"
-                    ? `C$ ${price.averagePrices.CAD}`
-                    : selectedCurrency === "GBP"
-                    ? `£ ${price.averagePrices.GBP}`
-                    : selectedCurrency === "SGD"
-                    ? `S$ ${price.averagePrices.SGD}`
-                    : `A$ ${price.averagePrices.AUD}`}
-                </h4>
-              </div>
-            </div>
-          ))}
-      </div>
-      <div>
-        <h3 className="text-[#0B4C84] mt-4 mb-3">Utilities Per Month</h3>
-        {utilityPrices &&
-          utilityPrices.length > 0 &&
-          utilityPrices.map((price, index) => (
-            <div key={price.id} className="grid grid-cols-3 md:grid-cols-6">
-              <div className="col-span-2 md:col-span-4">
-                <div className="flex items-start mb-1">
-                  <input
-                    type="text"
-                    id={`utility_${index + 1}`}
-                    name={`utility_${index + 1}`}
-                    className="compare-input"
-                    autoComplete="off"
-                    onChange={formik.handleChange}
-                    value={formik.values[`utility_${index + 1}`]}
-                  />
-                  <h4>{price.item_name}</h4>
+              ))}
+          </div>
+          <div>
+            <h3 className="text-[#0B4C84] mt-4 mb-3">Utilities Per Month</h3>
+            {utilityPrices &&
+              utilityPrices.length > 0 &&
+              utilityPrices.map((price, index) => (
+                <div key={price.id} className="grid grid-cols-3 md:grid-cols-6">
+                  <div className="col-span-2 md:col-span-4">
+                    <div className="flex items-start mb-1">
+                      <input
+                        type="text"
+                        id={`utility_${index + 1}`}
+                        name={`utility_${index + 1}`}
+                        className="compare-input"
+                        autoComplete="off"
+                        onChange={formik.handleChange}
+                        value={formik.values[`utility_${index + 1}`]}
+                      />
+                      <h4>{price.item_name}</h4>
+                    </div>
+                  </div>
+                  <div className="col-span-1 md:col-span-2 text-right">
+                    <h4>
+                      {selectedCurrency === "USD"
+                        ? `$ ${price.averagePrices.USD}`
+                        : selectedCurrency === "EUR"
+                        ? `€ ${price.averagePrices.EUR}`
+                        : selectedCurrency === "CAD"
+                        ? `C$ ${price.averagePrices.CAD}`
+                        : selectedCurrency === "GBP"
+                        ? `£ ${price.averagePrices.GBP}`
+                        : selectedCurrency === "SGD"
+                        ? `S$ ${price.averagePrices.SGD}`
+                        : `A$ ${price.averagePrices.AUD}`}
+                    </h4>
+                  </div>
                 </div>
-              </div>
-              <div className="col-span-1 md:col-span-2 text-right">
-                <h4>
-                  {selectedCurrency === "USD"
-                    ? `$ ${price.averagePrices.USD}`
-                    : selectedCurrency === "EUR"
-                    ? `€ ${price.averagePrices.EUR}`
-                    : selectedCurrency === "CAD"
-                    ? `C$ ${price.averagePrices.CAD}`
-                    : selectedCurrency === "GBP"
-                    ? `£ ${price.averagePrices.GBP}`
-                    : selectedCurrency === "SGD"
-                    ? `S$ ${price.averagePrices.SGD}`
-                    : `A$ ${price.averagePrices.AUD}`}
-                </h4>
-              </div>
-            </div>
-          ))}
-      </div>
-      <div>
-        <h3 className="text-[#0B4C84] mt-4 mb-3">Transportation</h3>
-        {transportationPrices &&
-          transportationPrices.length > 0 &&
-          transportationPrices.map((price, index) => (
-            <div key={price.id} className="grid grid-cols-3 md:grid-cols-6">
-              <div className="col-span-2 md:col-span-4">
-                <div className="flex items-start mb-1">
-                  <input
-                    type="text"
-                    id={`transport_${index + 1}`}
-                    name={`transport_${index + 1}`}
-                    className="compare-input"
-                    autoComplete="off"
-                    onChange={formik.handleChange}
-                    value={formik.values[`transport_${index + 1}`]}
-                  />
-                  <h4>{price.item_name}</h4>
+              ))}
+          </div>
+          <div>
+            <h3 className="text-[#0B4C84] mt-4 mb-3">Transportation</h3>
+            {transportationPrices &&
+              transportationPrices.length > 0 &&
+              transportationPrices.map((price, index) => (
+                <div key={price.id} className="grid grid-cols-3 md:grid-cols-6">
+                  <div className="col-span-2 md:col-span-4">
+                    <div className="flex items-start mb-1">
+                      <input
+                        type="text"
+                        id={`transport_${index + 1}`}
+                        name={`transport_${index + 1}`}
+                        className="compare-input"
+                        autoComplete="off"
+                        onChange={formik.handleChange}
+                        value={formik.values[`transport_${index + 1}`]}
+                      />
+                      <h4>{price.item_name}</h4>
+                    </div>
+                  </div>
+                  <div className="col-span-1 md:col-span-2 text-right">
+                    <h4>
+                      {selectedCurrency === "USD"
+                        ? `$ ${price.averagePrices.USD}`
+                        : selectedCurrency === "EUR"
+                        ? `€ ${price.averagePrices.EUR}`
+                        : selectedCurrency === "CAD"
+                        ? `C$ ${price.averagePrices.CAD}`
+                        : selectedCurrency === "GBP"
+                        ? `£ ${price.averagePrices.GBP}`
+                        : selectedCurrency === "SGD"
+                        ? `S$ ${price.averagePrices.SGD}`
+                        : `A$ ${price.averagePrices.AUD}`}
+                    </h4>
+                  </div>
                 </div>
-              </div>
-              <div className="col-span-1 md:col-span-2 text-right">
-                <h4>
-                  {selectedCurrency === "USD"
-                    ? `$ ${price.averagePrices.USD}`
-                    : selectedCurrency === "EUR"
-                    ? `€ ${price.averagePrices.EUR}`
-                    : selectedCurrency === "CAD"
-                    ? `C$ ${price.averagePrices.CAD}`
-                    : selectedCurrency === "GBP"
-                    ? `£ ${price.averagePrices.GBP}`
-                    : selectedCurrency === "SGD"
-                    ? `S$ ${price.averagePrices.SGD}`
-                    : `A$ ${price.averagePrices.AUD}`}
-                </h4>
-              </div>
+              ))}
+          </div>
+          <div className="grid grid-cols-3 md:grid-cols-6 items-center mt-3">
+            <div className="col-span-2 md:col-span-4">
+              <button type="submit" className="px-btn px-btn-theme">
+                Calculate All
+              </button>
             </div>
-          ))}
-      </div>
-      <div className="grid grid-cols-3 md:grid-cols-6 items-center mt-3">
-        <div className="col-span-2 md:col-span-4">
-          <button type="submit" className="px-btn px-btn-theme">
-            Calculate All
-          </button>
-        </div>
 
-        <div className="col-span-1 md:col-span-2 text-right flex items-center">
-          <h3 className="mr-2">Total</h3>
-          <input
-            type="text"
-            id="total"
-            name="total"
-            className="total"
-            autoComplete="off"
-            onChange={formik.handleChange}
-            value={formik.values.total}
-            readOnly
-          />
-        </div>
-      </div>
-      <ToastContainer />
-    </form>
+            <div className="col-span-1 md:col-span-2 text-right flex items-center">
+              <h3 className="mr-2">Total</h3>
+              <input
+                type="text"
+                id="total"
+                name="total"
+                className="total"
+                autoComplete="off"
+                onChange={formik.handleChange}
+                value={formik.values.total}
+                readOnly
+              />
+            </div>
+          </div>
+          <ToastContainer />
+        </form>
+      ) : (
+        ""
+      )}
+    </>
   );
 }

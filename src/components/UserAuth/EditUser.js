@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import countryList from "react-select-country-list";
 
 const failureAlert = () => {
   toast.warning("Failed to edit user.", {
@@ -24,8 +25,9 @@ export default function EditUser({
   handleUserChange,
 }) {
   const [isLoading, setIsLoading] = useState(false);
-
-  console.log(user);
+  const countries = useMemo(() => countryList().getData(), []);
+  const [country, setCountry] = useState(user.country);
+  const [currency, setCurrency] = useState(user.currency_code);
   const successAlert = () => {
     toast.success("Username already exists", {
       position: "bottom-center",
@@ -43,11 +45,16 @@ export default function EditUser({
     }, 3000);
   };
 
+  console.log(user.currency_code);
   const formik = useFormik({
     initialValues: {
       username: user.username,
       email: user.email,
       profile_img: user.profile_img,
+      city: user.city,
+      state: user.state,
+      country: user.country,
+      currency_code: user.currency_code,
     },
     onSubmit: (values) => {
       setIsLoading(true);
@@ -87,31 +94,33 @@ export default function EditUser({
             method="PATCH"
             className="form"
           >
-            <div>
-              <label className="form-label">Username</label>
-              <input
-                name="username"
-                id="username"
-                placeholder="Enter your new username"
-                className="form-control"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.username}
-              />
-              <p className="error"> {formik.errors.username}</p>
-            </div>
-            <div>
-              <label className="form-label">Email Addresss</label>
-              <input
-                name="email"
-                id="email"
-                placeholder="Enter your new email"
-                className="form-control"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-              />
-              <p className="error"> {formik.errors.email}</p>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <label className="form-label">Username</label>
+                <input
+                  name="username"
+                  id="username"
+                  placeholder="Enter your new username"
+                  className="form-control"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.username}
+                />
+                <p className="error"> {formik.errors.username}</p>
+              </div>
+              <div className="col-span-1">
+                <label className="form-label">Email Addresss</label>
+                <input
+                  name="email"
+                  id="email"
+                  placeholder="Enter your new email"
+                  className="form-control"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                />
+                <p className="error"> {formik.errors.email}</p>
+              </div>
             </div>
             <div>
               <label className="form-label">Profile Image URL</label>
@@ -125,6 +134,74 @@ export default function EditUser({
                 value={formik.values.profile_img}
               />
               <p className="error"> {formik.errors.profile_img}</p>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <label className="form-label">City</label>
+                <input
+                  name="city"
+                  id="city"
+                  placeholder="Enter your new city"
+                  className="form-control"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.city}
+                />
+                <p className="error"> {formik.errors.city}</p>
+              </div>
+              <div className="col-span-1">
+                <label className="form-label">State</label>
+                <input
+                  name="state"
+                  id="state"
+                  placeholder="Enter your new state"
+                  className="form-control"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.state}
+                />
+                <p className="error"> {formik.errors.state}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="col-span-1">
+                <label htmlFor="country" className="form-label">
+                  Country
+                </label>
+                <select
+                  id="country"
+                  name="country"
+                  className="form-control"
+                  onChange={(e) => setCountry(e.target.value)}
+                  value={country}
+                >
+                  <option disabled></option>
+                  {countries.map((country) => (
+                    <option key={country.label} value={country.code}>
+                      {country.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="col-span-1">
+                <label htmlFor="currency_code" className="form-label">
+                  Default Currency
+                </label>
+
+                <select
+                  id="currency_code"
+                  className="form-control"
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value)}
+                >
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                  <option value="AUD">AUD</option>
+                  <option value="SGD">SGD</option>
+                  <option value="CAD">CAD</option>
+                </select>
+              </div>
             </div>
 
             <div>
