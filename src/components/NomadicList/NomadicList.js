@@ -18,6 +18,57 @@ export default function NomadicList({
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(2);
   const [currentPosts, setCurrentPosts] = useState(null);
+  const [rentValues, setRentValues] = useState({
+    rent_1: 0,
+    rent_2: 0,
+    rent_3: 0,
+  });
+
+  const [utilityValues, setUtilityValues] = useState({
+    utility_1: 0,
+    utility_2: 0,
+    utility_3: 0,
+  });
+
+  const [restaurantValues, setRestaurantValues] = useState({
+    restaurant_1: 0,
+    restaurant_2: 0,
+  });
+
+  const [transportValues, setTransportValues] = useState({
+    transport_1: 0,
+    transport_2: 0,
+    transport_3: 0,
+  });
+
+  const [totalValues, setTotalValues] = useState({});
+  const handleRentChange = (fieldName, value) => {
+    setRentValues((prevValues) => ({
+      ...prevValues,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleUtilityChange = (fieldName, value) => {
+    setUtilityValues((prevValues) => ({
+      ...prevValues,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleRestaurantChange = (fieldName, value) => {
+    setRestaurantValues((prevValues) => ({
+      ...prevValues,
+      [fieldName]: value,
+    }));
+  };
+
+  const handleTransportChange = (fieldName, value) => {
+    setTransportValues((prevValues) => ({
+      ...prevValues,
+      [fieldName]: value,
+    }));
+  };
 
   useEffect(() => {
     if (userCities && userCities.length > 0 && prices && user) {
@@ -79,7 +130,7 @@ export default function NomadicList({
           </div>
         </div>
       </section>
-      <section className="py-[5%] lg:py-[3%] relative overflow-hidden">
+      <section className="py-[5%] lg:py-[5%] relative overflow-hidden">
         <div className="container mx-auto px-10">
           <div className="two-column-div">
             {currentPosts && currentPosts.length > 0 ? (
@@ -91,6 +142,18 @@ export default function NomadicList({
                   handleAddToList={handleAddToList}
                   user={user}
                   userCities={userCities}
+                  rentValues={rentValues}
+                  onRentChange={handleRentChange}
+                  setRentValues={setRentValues}
+                  utilityValues={utilityValues}
+                  setUtilityValues={setUtilityValues}
+                  onUtilityChange={handleUtilityChange}
+                  restaurantValues={restaurantValues}
+                  setRestaurantValues={setRestaurantValues}
+                  onRestaurantChange={handleRestaurantChange}
+                  transportValues={transportValues}
+                  setTransportValues={setTransportValues}
+                  onTransportChange={handleTransportChange}
                 />
               ))
             ) : (

@@ -11,7 +11,7 @@ export default function Community({ user, isLoading, blogs, onLogin }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [country, setCountry] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(8);
+  const [postsPerPage] = useState(9);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const [filteredBlogs, setFilteredBlogs] = useState([]);
@@ -85,7 +85,7 @@ export default function Community({ user, isLoading, blogs, onLogin }) {
       </section>
       {!isLoading && blogs ? (
         <>
-          <div className="container px-8 mt-5 columns-2 lg:columns-3">
+          <div className="container px-8 mt-5 columns-2 lg:columns-3 pt-4">
             {currentPosts().map((blog) => (
               <BlogItem
                 key={blog.id}
@@ -98,11 +98,13 @@ export default function Community({ user, isLoading, blogs, onLogin }) {
               />
             ))}
           </div>
-          <Pagination
-            paginate={paginate}
-            array={currentPosts()}
-            postsPerPage={postsPerPage}
-          />
+          <div className="pb-5">
+            <Pagination
+              paginate={paginate}
+              array={blogs}
+              postsPerPage={postsPerPage}
+            />
+          </div>
         </>
       ) : (
         <BarLoader color="#0B4C84" />

@@ -23,6 +23,7 @@ const Warning = ({
     }).then((response) => {
       if (response.ok) {
         handleAddToList();
+        closeToast();
       }
     });
   };
@@ -48,18 +49,28 @@ export default function RenderPrice({
   handleAddToList,
   user,
   userCities,
+  rentValues,
+  onRentChange,
+  setRentValues,
+  utilityValues,
+  setUtilityValues,
+  onUtilityChange,
+  restaurantValues,
+  setRestaurantValues,
+  onRestaurantChange,
+  transportValues,
+  setTransportValues,
+  onTransportChange,
 }) {
   const [restaurantPrices, setRestaurantPrice] = useState(null);
   const [rentPrices, setRentPrices] = useState(null);
   const [utilityPrices, setUtilityPrices] = useState(null);
   const [transportationPrices, setTransporationPrices] = useState(null);
-  const [rent_1, setRent_1] = useState(null);
 
   useEffect(() => {
     if (destination) {
       const restaurant_prices = destination.prices.filter(
-        (price) =>
-          price.category_name === "Restaurants" && price.user_id === user.id
+        (price) => price.category_name === "Restaurants"
       );
       setRestaurantPrice(restaurant_prices);
 
@@ -105,20 +116,55 @@ export default function RenderPrice({
   };
   const formik = useFormik({
     initialValues: {
-      rent_1: 0,
-      rent_2: 0,
-      rent_3: 0,
-      restaurant_1: 0,
-      restaurant_2: 0,
-      utility_1: 0,
-      utility_2: 0,
-      utility_3: 0,
-      transport_1: 0,
-      transport_2: 0,
-      transport_3: 0,
+      rent_1: rentValues[destination.city_id]?.rent_1 || 0,
+      rent_2: rentValues[destination.city_id]?.rent_2 || 0,
+      rent_3: rentValues[destination.city_id]?.rent_3 || 0,
+      restaurant_1: restaurantValues[destination.city_id]?.restaurant_1 || 0,
+      restaurant_2: restaurantValues[destination.city_id]?.restaurant_2 || 0,
+      utility_1: utilityValues[destination.city_id]?.utility_1 || 0,
+      utility_2: utilityValues[destination.city_id]?.utility_2 || 0,
+      utility_3: utilityValues[destination.city_id]?.utility_3 || 0,
+      transport_1: transportValues[destination.city_id]?.transport_1 || 0,
+      transport_2: transportValues[destination.city_id]?.transport_2 || 0,
+      transport_3: transportValues[destination.city_id]?.transport_3 || 0,
       total: 0,
     },
     onSubmit: (values) => {
+      setRentValues((prevRentValues) => ({
+        ...prevRentValues,
+        [destination.city_id]: {
+          rent_1: values.rent_1,
+          rent_2: values.rent_2,
+          rent_3: values.rent_3,
+        },
+      }));
+
+      setUtilityValues((prevUtilityValues) => ({
+        ...prevUtilityValues,
+        [destination.city_id]: {
+          utility_1: values.utility_1,
+          utility_2: values.utility_2,
+          utility_3: values.utility_3,
+        },
+      }));
+
+      setRestaurantValues((prevRestaurantValues) => ({
+        ...prevRestaurantValues,
+        [destination.city_id]: {
+          restaurant_1: values.restaurant_1,
+          restaurant_2: values.restaurant_2,
+        },
+      }));
+
+      setTransportValues((prevTransportValues) => ({
+        ...prevTransportValues,
+        [destination.city_id]: {
+          transport_1: values.transport_1,
+          transport_2: values.transport_2,
+          transport_3: values.transport_3,
+        },
+      }));
+
       const rentTotal =
         values.rent_1 *
           parseFloat(rentPrices[0].averagePrices[selectedCurrency]) +
@@ -217,8 +263,13 @@ export default function RenderPrice({
                         name={`rent_${index + 1}`}
                         className="compare-input"
                         autoComplete="off"
-                        onChange={formik.handleChange}
-                        value={formik.values[`rent_${index + 1}`]}
+                        onChange={(e) => {
+                          const fieldName = `rent_${index + 1}`;
+                          const value = e.target.value;
+                          formik.handleChange(e);
+                          onRentChange(fieldName, value);
+                        }}
+                        value={rentValues[`rent_${index + 1}`]}
                       />
                       <h4>{rentPrice.item_name}</h4>
                     </div>
@@ -255,8 +306,13 @@ export default function RenderPrice({
                         name={`restaurant_${index + 1}`}
                         className="compare-input"
                         autoComplete="off"
-                        onChange={formik.handleChange}
-                        value={formik.values[`restaurant_${index + 1}`]}
+                        onChange={(e) => {
+                          const fieldName = `restaurant_${index + 1}`;
+                          const value = e.target.value;
+                          formik.handleChange(e);
+                          onRestaurantChange(fieldName, value);
+                        }}
+                        value={restaurantValues[`restaurant_${index + 1}`]}
                       />
                       <h4>{price.item_name}</h4>
                     </div>
@@ -293,8 +349,13 @@ export default function RenderPrice({
                         name={`utility_${index + 1}`}
                         className="compare-input"
                         autoComplete="off"
-                        onChange={formik.handleChange}
-                        value={formik.values[`utility_${index + 1}`]}
+                        onChange={(e) => {
+                          const fieldName = `utility_${index + 1}`;
+                          const value = e.target.value;
+                          formik.handleChange(e);
+                          onUtilityChange(fieldName, value);
+                        }}
+                        value={utilityValues[`utility_${index + 1}`]}
                       />
                       <h4>{price.item_name}</h4>
                     </div>
@@ -331,8 +392,13 @@ export default function RenderPrice({
                         name={`transport_${index + 1}`}
                         className="compare-input"
                         autoComplete="off"
-                        onChange={formik.handleChange}
-                        value={formik.values[`transport_${index + 1}`]}
+                        onChange={(e) => {
+                          const fieldName = `transport_${index + 1}`;
+                          const value = e.target.value;
+                          formik.handleChange(e);
+                          onTransportChange(fieldName, value);
+                        }}
+                        value={transportValues[`transport_${index + 1}`]}
                       />
                       <h4>{price.item_name}</h4>
                     </div>

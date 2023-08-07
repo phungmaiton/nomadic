@@ -56,10 +56,10 @@ export default function Home({ isLoading, blogs, destinations, userCities }) {
                 key={blog.id}
                 title={
                   blog.title.length < 50
-                    ? blog.title
-                    : blog.title.substring(0, 50) + "..."
+                    ? blog.title.replace(/'S/g, "'s")
+                    : blog.title.replace(/'S/g, "'s").substring(0, 50) + "..."
                 }
-                details={blog.blog_body.substring(0, 100) + "..."}
+                details={blog.blog_body.substring(0, 80) + "..."}
                 image={blog.blog_img}
                 id={blog.id}
                 author={blog.user.username}

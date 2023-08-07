@@ -12,6 +12,7 @@ import BlogByID from "./components/Community/BlogByID";
 import NomadicList from "./components/NomadicList/NomadicList";
 import Dashboard from "./components/UserAuth/Dashboard";
 import EditBlog from "./components/Community/EditBlog";
+import Footer from "./components/Home/Footer";
 const calculateAveragePerPrice = (price) => {
   const { avg_usd, city } = price;
   const exchange_rate = city?.exchange_rate;
@@ -325,6 +326,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer />
       </UserContext.Provider>
     </div>
   );

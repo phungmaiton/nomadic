@@ -85,7 +85,7 @@ export default function Destinations({
     <PageTransition>
       <Banner setCountry={setCountry} setSearchTerm={setSearchTerm} />
       <section className="py-[5%] lg:py-[3%] relative overflow-hidden">
-        <div className="container mx-auto px-10">
+        <div className="container mx-auto px-10 py-10">
           <div className="column-div">
             {isLoading ? (
               <BarLoader color="#0B4C84" />
