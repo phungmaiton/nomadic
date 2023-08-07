@@ -36,7 +36,6 @@ const calculateAveragePerPrice = (price) => {
       averagePrices,
     };
   } catch (error) {
-    console.log(error);
     return null;
   }
 };
@@ -116,8 +115,6 @@ function App() {
     }
   }, [user]);
 
-  console.log(user);
-
   useEffect(() => {
     setIsLoading(true);
     fetch("/blogs")
@@ -146,8 +143,6 @@ function App() {
         setIsLoading(false);
       });
   }, []);
-
-  console.log(comments);
 
   useEffect(() => {
     setIsLoading(true);
@@ -190,8 +185,6 @@ function App() {
         setUsers(users);
       });
   }
-
-  console.log(users);
 
   return (
     <div>

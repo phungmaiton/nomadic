@@ -41,7 +41,6 @@ export default function NomadicList({
     transport_3: 0,
   });
 
-  const [totalValues, setTotalValues] = useState({});
   const handleRentChange = (fieldName, value) => {
     setRentValues((prevValues) => ({
       ...prevValues,
@@ -93,8 +92,6 @@ export default function NomadicList({
       }
       const lastid = userCities.slice(-1)[0].id;
       setLastID(lastid);
-
-      console.log(destinations);
     }
   }, [userCities, prices]);
 
