@@ -151,6 +151,8 @@ export default function NomadicList({
                   transportValues={transportValues}
                   setTransportValues={setTransportValues}
                   onTransportChange={handleTransportChange}
+                  destinations={destinations}
+                  setDestinations={setDestinations}
                 />
               ))
             ) : (

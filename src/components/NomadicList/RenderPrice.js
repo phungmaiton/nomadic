@@ -197,6 +197,23 @@ export default function RenderPrice({
 
       const total =
         rentTotal + restaurantTotal + utilityTotal + transportationTotal;
+
+      Object.keys(rentValues).forEach((fieldName) => {
+        formik.setFieldValue(fieldName, rentValues[fieldName]);
+      });
+
+      Object.keys(restaurantValues).forEach((fieldName) => {
+        formik.setFieldValue(fieldName, restaurantValues[fieldName]);
+      });
+
+      Object.keys(utilityValues).forEach((fieldName) => {
+        formik.setFieldValue(fieldName, utilityValues[fieldName]);
+      });
+
+      Object.keys(transportValues).forEach((fieldName) => {
+        formik.setFieldValue(fieldName, transportValues[fieldName]);
+      });
+
       formik.setFieldValue(
         "total",
         selectedCurrency === "USD"
