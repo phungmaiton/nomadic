@@ -6,13 +6,20 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pagination from "../Pagination/Pagination";
 
-const Warning = ({ closeToast, toastProps, id, handleAddBlog }) => {
+const Warning = ({
+  closeToast,
+  toastProps,
+  id,
+  handleAddBlog,
+  setCurrentPage,
+}) => {
   const handleYes = () => {
     fetch(`/blogs/${id}`, {
       method: "DELETE",
     }).then((response) => {
       if (response.ok) {
         handleAddBlog();
+        setCurrentPage(1);
       }
     });
   };
@@ -31,18 +38,25 @@ const Warning = ({ closeToast, toastProps, id, handleAddBlog }) => {
     </div>
   );
 };
-function RenderBlog({ title, author, id, img, handleAddBlog }) {
+function RenderBlog({ title, author, id, img, handleAddBlog, setCurrentPage }) {
   const displayWarning = () => {
-    toast.warning(<Warning id={id} handleAddBlog={handleAddBlog} />, {
-      position: "bottom-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: false,
-      progress: undefined,
-      theme: "light",
-    });
+    toast.warning(
+      <Warning
+        id={id}
+        handleAddBlog={handleAddBlog}
+        setCurrentPage={setCurrentPage}
+      />,
+      {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "light",
+      }
+    );
   };
   return (
     <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-center pb-4">
@@ -257,6 +271,7 @@ export default function Dashboard({
                             title={blog.title.replace(/'S/g, "'s")}
                             img={blog.blog_img}
                             handleAddBlog={handleAddBlog}
+                            setCurrentPage={setCurrentPage}
                           />
                         ))}
                         <Pagination
