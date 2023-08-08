@@ -10,6 +10,7 @@ const Warning = ({
   handleAddToList,
   user,
   userCities,
+  setCurrentPage,
 }) => {
   const usercity = userCities.filter(
     (usercity) => usercity.city_id === id && usercity.user_id === user.id
@@ -24,6 +25,7 @@ const Warning = ({
       if (response.ok) {
         handleAddToList();
         closeToast();
+        setCurrentPage(1);
       }
     });
   };
@@ -61,6 +63,7 @@ export default function RenderPrice({
   transportValues,
   setTransportValues,
   onTransportChange,
+  setCurrentPage,
 }) {
   const [restaurantPrices, setRestaurantPrice] = useState(null);
   const [rentPrices, setRentPrices] = useState(null);
@@ -101,6 +104,7 @@ export default function RenderPrice({
         handleAddToList={handleAddToList}
         user={user}
         userCities={userCities}
+        setCurrentPage={setCurrentPage}
       />,
       {
         position: "bottom-center",

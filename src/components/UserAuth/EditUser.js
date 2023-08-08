@@ -27,7 +27,7 @@ export default function EditUser({
   const [isLoading, setIsLoading] = useState(false);
   const countries = useMemo(() => countryList().getData(), []);
   const [country, setCountry] = useState(user.country);
-  const [currency, setCurrency] = useState(user.currency_code);
+  const [currency_code, setCurrency] = useState(user.currency_code);
   const successAlert = () => {
     toast.success("Updated successfully", {
       position: "bottom-center",
@@ -45,7 +45,6 @@ export default function EditUser({
     }, 3000);
   };
 
-  console.log(user.currency_code);
   const formik = useFormik({
     initialValues: {
       username: user.username,
@@ -59,9 +58,18 @@ export default function EditUser({
     onSubmit: (values) => {
       setIsLoading(true);
 
+      const data = {
+        username: values.username,
+        email: values.email,
+        profile_img: values.profile_img,
+        city: values.city,
+        state: values.state,
+        country: country,
+        currency_code: currency_code,
+      };
       fetch(`/users/${user.id}`, {
         method: "PATCH",
-        body: JSON.stringify(values),
+        body: JSON.stringify(data),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -191,8 +199,10 @@ export default function EditUser({
                 <select
                   id="currency_code"
                   className="form-control"
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
+                  value={currency_code}
+                  onChange={(e) => {
+                    setCurrency(e.target.value);
+                  }}
                 >
                   <option value="USD">USD</option>
                   <option value="EUR">EUR</option>

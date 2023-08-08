@@ -46,6 +46,7 @@ export default function NomadicList({
       ...prevValues,
       [fieldName]: value,
     }));
+    console.log(rentValues);
   };
 
   const handleUtilityChange = (fieldName, value) => {
@@ -153,6 +154,7 @@ export default function NomadicList({
                   onTransportChange={handleTransportChange}
                   destinations={destinations}
                   setDestinations={setDestinations}
+                  setCurrentPage={setCurrentPage}
                 />
               ))
             ) : (
