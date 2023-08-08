@@ -198,6 +198,8 @@ export default function RenderPrice({
       const total =
         rentTotal + restaurantTotal + utilityTotal + transportationTotal;
 
+      console.log(rentTotal);
+
       Object.keys(rentValues).forEach((fieldName) => {
         formik.setFieldValue(fieldName, rentValues[fieldName]);
       });
@@ -441,7 +443,7 @@ export default function RenderPrice({
           <div className="grid grid-cols-3 md:grid-cols-6 items-center mt-3">
             <div className="col-span-2 md:col-span-4">
               <button type="submit" className="px-btn px-btn-theme">
-                Calculate All
+                Calculate
               </button>
             </div>
 
