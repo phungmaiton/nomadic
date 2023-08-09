@@ -1,4 +1,11 @@
+import { useLocation } from "react-router-dom";
 export default function Footer() {
+  const location = useLocation();
+  const routesWithoutNavbar = ["/login", "/signup"];
+
+  if (routesWithoutNavbar.includes(location.pathname)) {
+    return null;
+  }
   const year = new Date().getFullYear();
   return (
     <footer className="footer bg-[#091D36] py-4">
