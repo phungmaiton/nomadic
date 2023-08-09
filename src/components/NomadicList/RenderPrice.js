@@ -64,11 +64,13 @@ export default function RenderPrice({
   setTransportValues,
   onTransportChange,
   setCurrentPage,
+  destinations,
 }) {
   const [restaurantPrices, setRestaurantPrice] = useState(null);
   const [rentPrices, setRentPrices] = useState(null);
   const [utilityPrices, setUtilityPrices] = useState(null);
   const [transportationPrices, setTransporationPrices] = useState(null);
+  const [cityStates, setCityStates] = useState({});
 
   useEffect(() => {
     if (destination) {
@@ -97,6 +99,23 @@ export default function RenderPrice({
     }
   }, [destination, userCities, user]);
 
+  useEffect(() => {
+    if (destinations) {
+      const updatedCityStates = {};
+      console.log(destinations);
+
+      destinations.forEach((destination) => {
+        updatedCityStates[destination.city_id] = {
+          cityData: destination,
+          total: 0,
+        };
+      });
+
+      setCityStates(updatedCityStates);
+      console.log(cityStates);
+    }
+  }, [destinations]);
+
   const displayWarning = (id) => {
     toast.warning(
       <Warning
@@ -118,132 +137,117 @@ export default function RenderPrice({
       }
     );
   };
-  const formik = useFormik({
-    initialValues: {
-      rent_1: rentValues[destination.city_id]?.rent_1 || 0,
-      rent_2: rentValues[destination.city_id]?.rent_2 || 0,
-      rent_3: rentValues[destination.city_id]?.rent_3 || 0,
-      restaurant_1: restaurantValues[destination.city_id]?.restaurant_1 || 0,
-      restaurant_2: restaurantValues[destination.city_id]?.restaurant_2 || 0,
-      utility_1: utilityValues[destination.city_id]?.utility_1 || 0,
-      utility_2: utilityValues[destination.city_id]?.utility_2 || 0,
-      utility_3: utilityValues[destination.city_id]?.utility_3 || 0,
-      transport_1: transportValues[destination.city_id]?.transport_1 || 0,
-      transport_2: transportValues[destination.city_id]?.transport_2 || 0,
-      transport_3: transportValues[destination.city_id]?.transport_3 || 0,
-      total: 0,
-    },
-    onSubmit: (values) => {
-      setRentValues((prevRentValues) => ({
-        ...prevRentValues,
-        [destination.city_id]: {
-          rent_1: values.rent_1,
-          rent_2: values.rent_2,
-          rent_3: values.rent_3,
-        },
-      }));
 
-      setUtilityValues((prevUtilityValues) => ({
-        ...prevUtilityValues,
-        [destination.city_id]: {
-          utility_1: values.utility_1,
-          utility_2: values.utility_2,
-          utility_3: values.utility_3,
-        },
-      }));
+  const handleInputChange = (cityId, fieldName, value) => {
+    if (fieldName.startsWith("rent")) {
+      const rentIndex = parseInt(fieldName.split("_")[1]) - 1;
+      const updatedRentValues = { ...rentValues[destination.city_id] };
+      updatedRentValues[`rent_${rentIndex + 1}`] = value;
+      setRentValues({
+        ...rentValues,
+        [destination.city_id]: updatedRentValues,
+      });
+    } else if (fieldName.startsWith("restaurant")) {
+      const restaurantIndex = parseInt(fieldName.split("_")[1]) - 1;
+      const updatedRestaurantValues = {
+        ...restaurantValues[destination.city_id],
+      };
+      updatedRestaurantValues[`restaurant_${restaurantIndex + 1}`] = value;
+      setRestaurantValues({
+        ...restaurantValues,
+        [destination.city_id]: updatedRestaurantValues,
+      });
+    } else if (fieldName.startsWith("utility")) {
+      const utilityIndex = parseInt(fieldName.split("_")[1]) - 1;
+      const updatedutilityValues = {
+        ...utilityValues[destination.city_id],
+      };
+      updatedutilityValues[`utility_${utilityIndex + 1}`] = value;
+      setUtilityValues({
+        ...utilityValues,
+        [destination.city_id]: updatedutilityValues,
+      });
+    } else if (fieldName.startsWith("transport")) {
+      // Similar logic for transportValues
+    }
+    setCityStates((prevCityStates) => {
+      const updatedCity = {
+        ...prevCityStates[cityId],
+        [fieldName]: value,
+      };
 
-      setRestaurantValues((prevRestaurantValues) => ({
-        ...prevRestaurantValues,
-        [destination.city_id]: {
-          restaurant_1: values.restaurant_1,
-          restaurant_2: values.restaurant_2,
-        },
-      }));
+      console.log(updatedCity);
 
-      setTransportValues((prevTransportValues) => ({
-        ...prevTransportValues,
-        [destination.city_id]: {
-          transport_1: values.transport_1,
-          transport_2: values.transport_2,
-          transport_3: values.transport_3,
-        },
-      }));
+      const updatedCityStates = { ...prevCityStates };
+      updatedCityStates[cityId] = updatedCity;
 
-      const rentTotal =
-        values.rent_1 *
-          parseFloat(rentPrices[0].averagePrices[selectedCurrency]) +
-        values.rent_2 *
-          parseFloat(rentPrices[1].averagePrices[selectedCurrency]) +
-        values.rent_3 *
-          parseFloat(rentPrices[2].averagePrices[selectedCurrency]);
+      // Recalculate totals for all cities
+      Object.keys(updatedCityStates).forEach((id) => {
+        const city = updatedCityStates[id];
 
-      const restaurantTotal =
-        values.restaurant_1 *
-          parseFloat(restaurantPrices[0].averagePrices[selectedCurrency]) +
-        values.restaurant_2 *
-          parseFloat(restaurantPrices[1].averagePrices[selectedCurrency]);
+        const rentTotal =
+          parseFloat(
+            city.rent_1 * rentPrices[0].averagePrices[selectedCurrency]
+          ) +
+          parseFloat(
+            city.rent_2 * rentPrices[1].averagePrices[selectedCurrency]
+          ) +
+          parseFloat(
+            city.rent_3 * rentPrices[2].averagePrices[selectedCurrency]
+          );
 
-      const utilityTotal =
-        values.utility_1 *
-          parseFloat(utilityPrices[0].averagePrices[selectedCurrency]) +
-        values.utility_2 *
-          parseFloat(utilityPrices[1].averagePrices[selectedCurrency]) +
-        values.utility_3 *
-          parseFloat(utilityPrices[2].averagePrices[selectedCurrency]);
+        const restaurantTotal =
+          parseFloat(
+            city.restaurant_1 *
+              restaurantPrices[0].averagePrices[selectedCurrency]
+          ) +
+          parseFloat(
+            city.restaurant_2 *
+              restaurantPrices[1].averagePrices[selectedCurrency]
+          );
 
-      const transportationTotal =
-        values.transport_1 *
-          parseFloat(transportationPrices[0].averagePrices[selectedCurrency]) +
-        values.transport_2 *
-          parseFloat(transportationPrices[1].averagePrices[selectedCurrency]) +
-        values.transport_3 *
-          parseFloat(transportationPrices[2].averagePrices[selectedCurrency]);
+        const utilityTotal =
+          parseFloat(
+            city.utility_1 * utilityPrices[0].averagePrices[selectedCurrency]
+          ) +
+          parseFloat(
+            city.utility_2 * utilityPrices[1].averagePrices[selectedCurrency]
+          ) +
+          parseFloat(
+            city.utility_3 * utilityPrices[2].averagePrices[selectedCurrency]
+          );
 
-      const total =
-        rentTotal + restaurantTotal + utilityTotal + transportationTotal;
+        const transportationTotal =
+          parseFloat(
+            city.transport_1 *
+              transportationPrices[0].averagePrices[selectedCurrency]
+          ) +
+          parseFloat(
+            city.transport_2 *
+              transportationPrices[1].averagePrices[selectedCurrency]
+          ) +
+          parseFloat(
+            city.transport_3 *
+              transportationPrices[2].averagePrices[selectedCurrency]
+          );
 
-      console.log(rentTotal);
+        const newTotal =
+          rentTotal + restaurantTotal + utilityTotal + transportationTotal;
 
-      Object.keys(rentValues).forEach((fieldName) => {
-        formik.setFieldValue(fieldName, rentValues[fieldName]);
+        updatedCityStates[id] = {
+          ...city,
+          total: newTotal,
+        };
       });
 
-      Object.keys(restaurantValues).forEach((fieldName) => {
-        formik.setFieldValue(fieldName, restaurantValues[fieldName]);
-      });
+      return updatedCityStates;
+    });
+  };
 
-      Object.keys(utilityValues).forEach((fieldName) => {
-        formik.setFieldValue(fieldName, utilityValues[fieldName]);
-      });
-
-      Object.keys(transportValues).forEach((fieldName) => {
-        formik.setFieldValue(fieldName, transportValues[fieldName]);
-      });
-
-      formik.setFieldValue(
-        "total",
-        selectedCurrency === "USD"
-          ? `$ ${total.toFixed(2)}`
-          : selectedCurrency === "EUR"
-          ? `€ ${total.toFixed(2)}`
-          : selectedCurrency === "CAD"
-          ? `C$ ${total.toFixed(2)}`
-          : selectedCurrency === "GBP"
-          ? `£ ${total.toFixed(2)}`
-          : selectedCurrency === "SGD"
-          ? `S$ ${total.toFixed(2)}`
-          : `A$ ${total.toFixed(2)}`
-      );
-    },
-  });
   return (
     <>
       {destination ? (
-        <form
-          className="price-compare"
-          id="price-compare"
-          onSubmit={formik.handleSubmit}
-        >
+        <form className="price-compare" id="price-compare">
           <div className="grid grid-cols-3 md:grid-cols-6">
             <h2 className="col-span-2 md:col-span-5">
               {destination.city_name}
@@ -287,12 +291,18 @@ export default function RenderPrice({
                         className="compare-input"
                         autoComplete="off"
                         onChange={(e) => {
-                          const fieldName = `rent_${index + 1}`;
+                          const fieldName = e.target.name;
                           const value = e.target.value;
-                          formik.handleChange(e);
-                          onRentChange(fieldName, value);
+                          const cityId = destination.city_id;
+                          handleInputChange(cityId, fieldName, value);
                         }}
-                        value={rentValues[`rent_${index + 1}`]}
+                        value={
+                          rentValues && rentValues[destination.city_id]
+                            ? rentValues[destination.city_id][
+                                `rent_${index + 1}`
+                              ]
+                            : ""
+                        }
                       />
                       <h4>{rentPrice.item_name}</h4>
                     </div>
@@ -330,12 +340,19 @@ export default function RenderPrice({
                         className="compare-input"
                         autoComplete="off"
                         onChange={(e) => {
-                          const fieldName = `restaurant_${index + 1}`;
+                          const fieldName = e.target.name;
                           const value = e.target.value;
-                          formik.handleChange(e);
-                          onRestaurantChange(fieldName, value);
+                          const cityId = destination.city_id;
+                          handleInputChange(cityId, fieldName, value);
                         }}
-                        value={restaurantValues[`restaurant_${index + 1}`]}
+                        value={
+                          restaurantValues &&
+                          restaurantValues[destination.city_id]
+                            ? restaurantValues[destination.city_id][
+                                `restaurant_${index + 1}`
+                              ]
+                            : ""
+                        }
                       />
                       <h4>{price.item_name}</h4>
                     </div>
@@ -373,12 +390,16 @@ export default function RenderPrice({
                         className="compare-input"
                         autoComplete="off"
                         onChange={(e) => {
-                          const fieldName = `utility_${index + 1}`;
+                          const fieldName = e.target.name;
                           const value = e.target.value;
-                          formik.handleChange(e);
-                          onUtilityChange(fieldName, value);
+                          const cityId = destination.city_id;
+                          handleInputChange(cityId, fieldName, value);
                         }}
-                        value={utilityValues[`utility_${index + 1}`]}
+                        value={
+                          utilityValues && utilityValues.length > 0
+                            ? utilityValues[`utility_${index + 1}`]
+                            : ""
+                        }
                       />
                       <h4>{price.item_name}</h4>
                     </div>
@@ -416,12 +437,16 @@ export default function RenderPrice({
                         className="compare-input"
                         autoComplete="off"
                         onChange={(e) => {
-                          const fieldName = `transport_${index + 1}`;
+                          const fieldName = e.target.name;
                           const value = e.target.value;
-                          formik.handleChange(e);
-                          onTransportChange(fieldName, value);
+                          const cityId = destination.city_id;
+                          handleInputChange(cityId, fieldName, value);
                         }}
-                        value={transportValues[`transport_${index + 1}`]}
+                        value={
+                          transportValues && transportValues.length > 0
+                            ? transportValues[`transport_${index + 1}`]
+                            : ""
+                        }
                       />
                       <h4>{price.item_name}</h4>
                     </div>
@@ -455,12 +480,15 @@ export default function RenderPrice({
               <h3 className="mr-2">Total</h3>
               <input
                 type="text"
-                id="total"
-                name="total"
+                id={`total_${destination.city_id}`}
+                name={`total_${destination.city_id}`}
                 className="total"
                 autoComplete="off"
-                onChange={formik.handleChange}
-                value={formik.values.total}
+                value={
+                  cityStates && cityStates[destination.city_id]
+                    ? cityStates[destination.city_id].total
+                    : 0
+                }
                 readOnly
               />
             </div>
