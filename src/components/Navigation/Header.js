@@ -41,7 +41,7 @@ export default function Header({ selectedCurrency, handleCurrencyChange }) {
           <div className="logo">
             <NavLink to="/">
               <img
-                src="/img/nomadic-logo.png"
+                src="img/nomadic-logo.png"
                 title="Logo"
                 alt="Logo"
                 width="200px"
