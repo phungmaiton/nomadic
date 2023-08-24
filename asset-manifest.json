@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/nomadic/static/css/main.86a76923.css",
+    "main.js": "/nomadic/static/js/main.4ae79727.js",
+    "static/js/787.b8f8c4e0.chunk.js": "/nomadic/static/js/787.b8f8c4e0.chunk.js",
+    "index.html": "/nomadic/index.html",
+    "main.86a76923.css.map": "/nomadic/static/css/main.86a76923.css.map",
+    "main.4ae79727.js.map": "/nomadic/static/js/main.4ae79727.js.map",
+    "787.b8f8c4e0.chunk.js.map": "/nomadic/static/js/787.b8f8c4e0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.86a76923.css",
+    "static/js/main.4ae79727.js"
+  ]
+}
