@@ -63,7 +63,7 @@ export default function SignupForm({ onLogin }) {
           <form onSubmit={handleSubmit} className="form">
             <div className="mb-2">
               <img
-                src="/img/nomadic-pin.png"
+                src="img/nomadic-pin.png"
                 alt="logo"
                 className="w-[70px] mb-4"
               />

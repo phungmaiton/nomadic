@@ -37,7 +37,7 @@ export default function LoginForm({ onLogin }) {
       <div className="container mx-auto">
         <form onSubmit={handleSubmit} className="form">
           <div className="mb-3">
-            <img src="/img/nomadic-pin.png" className="w-[70px] mb-4" />
+            <img src="img/nomadic-pin.png" className="w-[70px] mb-4" />
             <label htmlFor="username" className="form-instruction">
               Enter username and password to login
             </label>
