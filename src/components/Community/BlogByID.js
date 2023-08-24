@@ -98,7 +98,7 @@ export default function BlogByID({
   };
   useEffect(() => {
     setIsLoading(true);
-    fetch(`/blogs/${id}`)
+    fetch(`https://nomadic-db.onrender.com/blogs/${id}`)
       .then((response) => response.json())
       .then((blog) => {
         setBlog(blog);

@@ -59,7 +59,7 @@ export default function AddBlog({ user, blogs, handleAddBlog }) {
         blog_country: country,
       };
       setIsLoading(true);
-      fetch("/blogs", {
+      fetch("https://nomadic-db.onrender.com/blogs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

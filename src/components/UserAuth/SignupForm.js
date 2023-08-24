@@ -22,7 +22,7 @@ export default function SignupForm({ onLogin }) {
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    fetch("/signup", {
+    fetch("https://nomadic-db.onrender.com/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

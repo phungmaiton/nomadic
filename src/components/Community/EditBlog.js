@@ -38,7 +38,7 @@ export default function EditBlog({ user, blogs, handleAddBlog }) {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`/blogs/${id}`)
+    fetch(`https://nomadic-db.onrender.com/blogs/${id}`)
       .then((response) => response.json())
       .then((blog) => {
         setBlog(blog);
@@ -75,7 +75,7 @@ export default function EditBlog({ user, blogs, handleAddBlog }) {
         blog_country: country,
       };
       setIsLoading(true);
-      fetch(`/blogs/${id}   `, {
+      fetch(`https://nomadic-db.onrender.com/blogs/${id}   `, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

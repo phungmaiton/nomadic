@@ -19,7 +19,7 @@ const Warning = ({
   const usercity_id = usercity[0].id;
 
   const handleYes = () => {
-    fetch(`/usercities/${usercity_id}`, {
+    fetch(`https://nomadic-db.onrender.com/usercities/${usercity_id}`, {
       method: "DELETE",
     }).then((response) => {
       if (response.ok) {

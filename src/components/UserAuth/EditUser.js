@@ -67,7 +67,7 @@ export default function EditUser({
         country: country,
         currency_code: currency_code,
       };
-      fetch(`/users/${user.id}`, {
+      fetch(`https://nomadic-db.onrender.com/users/${user.id}`, {
         method: "PATCH",
         body: JSON.stringify(data),
         headers: {

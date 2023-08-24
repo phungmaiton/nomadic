@@ -14,7 +14,7 @@ const Warning = ({
   setCurrentPage,
 }) => {
   const handleYes = () => {
-    fetch(`/blogs/${id}`, {
+    fetch(`https://nomadic-db.onrender.com/blogs/${id}`, {
       method: "DELETE",
     }).then((response) => {
       if (response.ok) {

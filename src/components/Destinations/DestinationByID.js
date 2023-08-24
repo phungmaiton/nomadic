@@ -131,7 +131,7 @@ export default function DestinationByID({
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`/cities/${id}`)
+    fetch(`https://nomadic-db.onrender.com/cities/${id}`)
       .then((response) => response.json())
       .then((destination) => {
         setDestination(destination);
@@ -195,7 +195,7 @@ export default function DestinationByID({
       city_id: destination.id,
       rating: 0,
     };
-    fetch("/usercities", {
+    fetch("https://nomadic-db.onrender.com/usercities", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

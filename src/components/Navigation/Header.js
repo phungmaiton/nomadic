@@ -11,7 +11,7 @@ export default function Header({ selectedCurrency, handleCurrencyChange }) {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const navigate = useNavigate();
   function handleLogoutClick() {
-    fetch("/logout", { method: "DELETE" })
+    fetch("https://nomadic-db.onrender.com/logout", { method: "DELETE" })
       .then((r) => {
         if (r.ok) {
           setUser(null);

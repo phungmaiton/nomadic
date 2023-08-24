@@ -41,7 +41,7 @@ export default function CommentForm({
       };
 
       setIsLoading(true);
-      fetch("/comments", {
+      fetch("https://nomadic-db.onrender.com/comments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

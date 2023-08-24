@@ -26,7 +26,7 @@ export default function LoginPopup({ closePopup, setShowModal, onLogin }) {
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    fetch("/login", {
+    fetch("https://nomadic-db.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -63,7 +63,7 @@ function App() {
 
   useEffect(() => {
     // auto-login
-    fetch("/check_session")
+    fetch("https://nomadic-db.onrender.com/check_session")
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -81,7 +81,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("/cities")
+    fetch("https://nomadic-db.onrender.com/cities")
       .then((response) => response.json())
       .then((cities) => {
         setDestinations(cities);
@@ -91,7 +91,7 @@ function App() {
 
   useEffect(() => {
     setIsPricesLoading(true);
-    fetch("/prices")
+    fetch("https://nomadic-db.onrender.com/prices")
       .then((response) => response.json())
       .then((prices) => {
         setPrices(prices);
@@ -117,7 +117,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("/blogs")
+    fetch("https://nomadic-db.onrender.com/blogs")
       .then((response) => response.json())
       .then((blogs) => {
         setBlogs(blogs);
@@ -127,7 +127,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("/users")
+    fetch("https://nomadic-db.onrender.com/users")
       .then((response) => response.json())
       .then((users) => {
         setUsers(users);
@@ -136,7 +136,7 @@ function App() {
   }, []);
   useEffect(() => {
     setIsLoading(true);
-    fetch("/comments")
+    fetch("https://nomadic-db.onrender.com/comments")
       .then((response) => response.json())
       .then((comments) => {
         setComments(comments);
@@ -146,7 +146,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("/usercities")
+    fetch("https://nomadic-db.onrender.com/usercities")
       .then((response) => response.json())
       .then((usercities) => {
         setUserCities(usercities);
@@ -155,7 +155,7 @@ function App() {
   }, [updatedPrices, destinations]);
 
   function handleAddBlog() {
-    fetch("/blogs")
+    fetch("https://nomadic-db.onrender.com/blogs")
       .then((response) => response.json())
       .then((blogs) => {
         setBlogs(blogs);
@@ -163,7 +163,7 @@ function App() {
   }
 
   function onComment() {
-    fetch("/comments")
+    fetch("https://nomadic-db.onrender.com/comments")
       .then((response) => response.json())
       .then((comments) => {
         setComments(comments);
@@ -171,7 +171,7 @@ function App() {
   }
 
   function handleAddToList() {
-    fetch("/usercities")
+    fetch("https://nomadic-db.onrender.com/usercities")
       .then((response) => response.json())
       .then((usercities) => {
         setUserCities(usercities);
@@ -179,7 +179,7 @@ function App() {
   }
 
   function handleUserChange() {
-    fetch("/users")
+    fetch("https://nomadic-db.onrender.com/users")
       .then((response) => response.json())
       .then((users) => {
         setUsers(users);
