@@ -154,7 +154,7 @@ export default function NomadicList({
                   onTransportChange={handleTransportChange}
                   destinations={destinations}
                   setDestinations={setDestinations}
-                  setCurrentPage={setCurrentPage}
+                  setCurrentPage={setCurrentPage}                  
                 />
               ))
             ) : (
