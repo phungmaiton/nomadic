@@ -19,7 +19,7 @@ const Warning = ({
   const usercity_id = usercity[0].id;
 
   const handleYes = () => {
-    fetch(`https://nomadic-db.onrender.com/usercities/${usercity_id}`, {
+    fetch(`/usercities/${usercity_id}`, {
       method: "DELETE",
     }).then((response) => {
       if (response.ok) {
@@ -201,8 +201,6 @@ export default function RenderPrice({
 
       const total =
         rentTotal + restaurantTotal + utilityTotal + transportationTotal;
-
-      console.log(rentTotal);
 
       Object.keys(rentValues).forEach((fieldName) => {
         formik.setFieldValue(fieldName, rentValues[fieldName]);
