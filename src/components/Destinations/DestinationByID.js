@@ -332,9 +332,9 @@ export default function DestinationByID({
                   </div>
                 </div>
                 <div className="lg:col-span-4 text-left mb-[0px] lg:mb-0 lg:ml-[10%] items-center text-center">
-                  <div className="shadow-lg rounded-lg">
+                  {/* <div className="shadow-lg rounded-lg">
                     <Map address={address} />
-                  </div>
+                  </div> */}
                   {cityBlogs && cityBlogs.length > 0 && (
                     <div className="related-posts mt-4">
                       <h2 className="mb-3 text-[#0B4C84] text-[25px]">
